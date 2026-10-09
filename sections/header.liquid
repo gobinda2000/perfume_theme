@@ -101,8 +101,15 @@
 </style>
 
 {%- style -%}
+  .header.page-width,
+  .header:not(.drawer-menu).page-width {
+    max-width: 100%;
+    padding-left: {{ section.settings.header_padding_x }}px;
+    padding-right: {{ section.settings.header_padding_x }}px;
+  }
+
   .header {
-    padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 3rem;
+    padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px {{ section.settings.header_padding_x }}px {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px {{ section.settings.header_padding_x }}px;
   }
 
   .section-header {
@@ -676,6 +683,17 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 20
+    },
+    {
+      "type": "range",
+      "id": "header_padding_x",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Header horizontal padding",
+      "info": "Controls the left and right space inside the header.",
+      "default": 0
     }
   ],
   "blocks": [
