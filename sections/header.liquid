@@ -112,6 +112,195 @@
     padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px {{ section.settings.header_padding_x }}px {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px {{ section.settings.header_padding_x }}px;
   }
 
+  .header__icon--wishlist .svg-wrapper > svg {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    details[open] > .search-modal {
+      position: fixed;
+      inset: 0;
+      height: 100vh;
+      min-height: 0;
+      background: transparent;
+      border: 0;
+      display: block;
+      overflow: visible;
+      z-index: 10;
+    }
+
+    details[open] > .search-modal .modal-overlay {
+      display: block;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 0;
+    }
+
+    details[open] > .search-modal .modal-overlay::after {
+      display: none;
+    }
+
+    details[open] > .search-modal .search-modal__content {
+      width: auto;
+      right: 15px;
+      left: 15px;
+      height: 12.4rem;
+      margin: 0;
+      padding: 3rem 11rem;
+      background: rgb(var(--color-background));
+      box-sizing: border-box;
+      position: absolute;
+      top: 89px;
+      z-index: 1;
+    }
+
+    details[open] > .search-modal .search-modal__form {
+      max-width: none;
+      font-family: var(--font-body-family);
+      font-size: var(--font-body-size, 14px);
+      font-weight: var(--font-body-weight-bold, 600);
+    }
+
+    details[open] > .search-modal predictive-search {
+      position: relative;
+      display: block;
+    }
+
+    details[open] > .search-modal .predictive-search--header {
+      left: -11rem;
+      top: calc(100% + 0.1rem);
+      width: calc(100% + 22rem);
+      max-height: 32rem;
+      border-top: 0.1rem solid rgba(var(--color-foreground), 0.08);
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    details[open] > .search-modal .predictive-search__heading {
+      margin-left: 2.7rem;
+      margin-right: 2.7rem;
+    }
+
+    details[open] > .search-modal .predictive-search__item {
+      padding-left: 2.7rem;
+      padding-right: 2.7rem;
+    }
+
+    details[open] > .search-modal .field {
+      display: flex;
+      align-items: center;
+      height: 6.2rem;
+      border: 0.1rem solid rgba(var(--color-foreground), 0.12);
+      border-radius: 0.4rem;
+      background: rgb(var(--color-background));
+    }
+
+    details[open] > .search-modal .search-modal__category {
+      flex: 0 0 20rem;
+      height: 100%;
+      padding: 0 2rem;
+      border: 0;
+      border-right: 0.1rem solid rgba(var(--color-foreground), 0.12);
+      background: transparent;
+      color: rgb(var(--color-foreground));
+      font-family: var(--font-body-family);
+      font-size: var(--font-body-size, 14px);
+      font-weight: var(--font-body-weight-bold, 600);
+    }
+
+    details[open] > .search-modal .search__input.field__input {
+      flex: 1;
+      height: 100%;
+      min-width: 0;
+      padding: 0 1.5rem;
+      border: 0;
+      box-shadow: none;
+      font-family: var(--font-body-family);
+      font-size: var(--font-body-size, 14px);
+      font-weight: var(--font-body-weight-bold, 600);
+    }
+
+    details[open] > .search-modal .field__label {
+      display: none;
+    }
+
+    details[open] > .search-modal .search__button {
+      position: static;
+      flex: 0 0 14rem;
+      width: 14rem;
+      height: 5.2rem;
+      margin-right: 0.5rem;
+      border-radius: 0.4rem;
+      background: #c81046;
+      color: #ffffff;
+      font-family: var(--font-body-family);
+      font-size: var(--font-body-size, 14px);
+      font-weight: var(--font-body-weight-bold, 600);
+    }
+
+    details[open] > .search-modal .search__button .svg-wrapper {
+      display: none;
+    }
+
+    details[open] > summary .header__icon-close {
+      display: none;
+    }
+
+    details[open] > .search-modal .reset__button {
+      display: none;
+    }
+
+    details[open] > .search-modal .search__button::after {
+      content: 'Search';
+      font-size: var(--font-body-size, 14px);
+    }
+
+    details[open] > .search-modal .search-modal__close-button {
+      position: absolute;
+      right: 2rem;
+      top: 2rem;
+      margin: 0;
+    }
+
+    details[open] > .search-modal .predictive-search {
+      font-family: var(--font-body-family);
+      font-size: var(--font-body-size, 14px);
+      font-weight: var(--font-body-weight-bold, 600);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .header__inline-menu header-menu > details > .header__submenu {
+      display: block;
+      left: 0;
+      min-width: 25rem;
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 100%;
+      transform: translateY(-1.5rem);
+      visibility: hidden;
+      z-index: 2;
+    }
+
+    .header__inline-menu header-menu > details:hover > .header__submenu,
+    .header__inline-menu header-menu > details:focus-within > .header__submenu,
+    .header__inline-menu header-menu > details[open] > .header__submenu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+      visibility: visible;
+    }
+
+    .header__inline-menu header-menu > details:hover > summary .icon-caret,
+    .header__inline-menu header-menu > details:focus-within > summary .icon-caret,
+    .header__inline-menu header-menu > details[open] > summary .icon-caret {
+      transform: rotate(180deg);
+    }
+  }
+
   .section-header {
     position: sticky; /* This is for fixing a Safari z-index issue. PR #2147 */
     margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
@@ -221,12 +410,8 @@
     {%- endif -%}
 
     {%- liquid
-      if section.settings.menu != blank
-        if section.settings.menu_type_desktop == 'dropdown'
-          render 'header-dropdown-menu'
-        elsif section.settings.menu_type_desktop != 'drawer'
-          render 'header-mega-menu'
-        endif
+      if section.settings.menu != blank and section.settings.menu_type_desktop != 'drawer'
+        render 'header-dropdown-menu'
       endif
     %}
 
@@ -289,6 +474,11 @@
       </div>
       {% render 'header-search', input_id: 'Search-In-Modal' %}
 
+      <a href="/pages/wishlist" class="header__icon header__icon--wishlist link focus-inset">
+        <span class="svg-wrapper">{{ 'icon-heart.svg' | inline_asset_content }}</span>
+        <span class="visually-hidden">{{ 'wishlist.header_label' | t }}</span>
+      </a>
+
       {%- if shop.customer_accounts_enabled -%}
         <shopify-account
           menu="{{ settings.customer_account_menu | default: 'customer-account-main-menu' }}"
@@ -334,6 +524,28 @@
 {%- endif -%}
 
 {% javascript %}
+  const desktopMenuQuery = window.matchMedia('(min-width: 990px)');
+
+  document.querySelectorAll('.header__inline-menu header-menu > details').forEach((details) => {
+    details.addEventListener('mouseenter', () => {
+      if (!desktopMenuQuery.matches) return;
+
+      document.querySelectorAll('.header__inline-menu header-menu > details[open]').forEach((openDetails) => {
+        if (openDetails !== details) openDetails.removeAttribute('open');
+      });
+
+      details.setAttribute('open', '');
+    });
+
+    details.addEventListener('mouseleave', () => {
+      if (desktopMenuQuery.matches) details.removeAttribute('open');
+    });
+
+    details.querySelector(':scope > summary').addEventListener('click', (event) => {
+      if (desktopMenuQuery.matches) event.preventDefault();
+    });
+  });
+
   class StickyHeader extends HTMLElement {
     constructor() {
       super();

@@ -42,6 +42,12 @@
         {%- endif -%}
         <form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form">
           <div class="field">
+            <select class="search-modal__category" aria-label="Search category">
+              <option value="">All Categories</option>
+              {%- for collection in collections -%}
+                <option value="{{ collection.handle }}">{{ collection.title | escape }}</option>
+              {%- endfor -%}
+            </select>
             <input
               class="search__input field__input"
               id="{{ input_id }}"
