@@ -6,26 +6,7 @@
   slideshow-component .slideshow__text .banner__buttons .button {
     --buttons-radius: 2.5rem;
     --buttons-radius-outset: 2.5rem;
-  }
-
-  slideshow-component .slideshow__subheading--small {
-    font-size: 1.3rem;
-  }
-
-  slideshow-component .slideshow__subheading--medium {
-    font-size: 1.6rem;
-  }
-
-  slideshow-component .slideshow__subheading--large {
-    font-size: 1.9rem;
-  }
-
-  slideshow-component .slideshow__subheading--extra-large {
-    font-size: 3rem;
-  }
-
-  slideshow-component .slideshow__subheading--extra-extra-large {
-    font-size: 4rem;
+    border-radius: 2.5rem;
   }
 
   slideshow-component .slideshow__reference-heading {
@@ -37,23 +18,8 @@
     text-transform: uppercase;
   }
 
-  slideshow-component .slideshow__subheading--extra-extra-large {
-    color: #ffffff;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    line-height: 0.95;
-    text-transform: uppercase;
-  }
-
-  @media screen and (max-width: 749px) {
-    slideshow-component .slideshow__subheading--extra-large {
-      font-size: 2.4rem !important;
-    }
-
-    slideshow-component .slideshow__subheading--extra-extra-large {
-      font-size: 3.8rem !important;
-      letter-spacing: 0.02em;
-    }
+  slideshow-component .slideshow__text .banner__text {
+    font-size: var(--slideshow-subheading-size, 16px);
   }
 
   @media screen and (min-width: 750px) {
@@ -113,29 +79,10 @@
     }
 
     slideshow-component .slideshow__text .banner__text {
-      font-size: clamp(1.4rem, 1.5vw, 2rem);
+      font-size: var(--slideshow-subheading-size, 16px);
       line-height: 1.4;
     }
 
-    slideshow-component .slideshow__subheading--small {
-      font-size: 1.4rem !important;
-    }
-
-    slideshow-component .slideshow__subheading--medium {
-      font-size: 1.8rem !important;
-    }
-
-    slideshow-component .slideshow__subheading--large {
-      font-size: clamp(2.2rem, 2.8vw, 3.2rem) !important;
-    }
-
-    slideshow-component .slideshow__subheading--extra-large {
-      font-size: clamp(3rem, 5vw, 6rem) !important;
-    }
-
-    slideshow-component .slideshow__subheading--extra-extra-large {
-      font-size: clamp(5rem, 10vw, 11rem) !important;
-    }
   }
 {%- endstyle -%}
 
@@ -303,7 +250,10 @@
               </h2>
             {%- endif -%}
             {%- if block.settings.subheading != blank -%}
-              <div class="banner__text rte slideshow__subheading--{{ block.settings.subheading_size | default: 'medium' }}">
+              <div
+                class="banner__text rte"
+                style="--slideshow-subheading-size: {{ block.settings.subheading_size | default: 16 }}px;"
+              >
                 <p>{{ block.settings.subheading }}</p>
               </div>
             {%- endif -%}
@@ -587,31 +537,13 @@
           "label": "t:sections.slideshow.blocks.slide.settings.subheading.label"
         },
         {
-          "type": "select",
+          "type": "range",
           "id": "subheading_size",
-          "options": [
-            {
-              "value": "small",
-              "label": "Small"
-            },
-            {
-              "value": "medium",
-              "label": "Medium"
-            },
-            {
-              "value": "large",
-              "label": "Large"
-            },
-            {
-              "value": "extra-large",
-              "label": "Extra large"
-            },
-            {
-              "value": "extra-extra-large",
-              "label": "Extra extra large"
-            }
-          ],
-          "default": "medium",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 16,
           "label": "Subheading size"
         },
         {
