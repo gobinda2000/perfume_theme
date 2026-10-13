@@ -3,6 +3,11 @@
 {{ 'component-slideshow.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
+  slideshow-component .slideshow__text .banner__buttons .button {
+    --buttons-radius: 2.5rem;
+    --buttons-radius-outset: 2.5rem;
+  }
+
   slideshow-component .slideshow__subheading--small {
     font-size: 1.3rem;
   }
