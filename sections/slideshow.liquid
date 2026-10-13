@@ -23,13 +23,31 @@
     font-size: 4rem;
   }
 
+  slideshow-component .slideshow__reference-heading {
+    color: #ffffff;
+    font-size: clamp(2.4rem, 3.6vw, 4.8rem);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  slideshow-component .slideshow__subheading--extra-extra-large {
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+
   @media screen and (max-width: 749px) {
     slideshow-component .slideshow__subheading--extra-large {
       font-size: 2.4rem !important;
     }
 
     slideshow-component .slideshow__subheading--extra-extra-large {
-      font-size: 3rem !important;
+      font-size: 3.8rem !important;
+      letter-spacing: 0.02em;
     }
   }
 
@@ -85,6 +103,10 @@
       line-height: 1.1;
     }
 
+    slideshow-component .slideshow__reference-heading {
+      font-size: clamp(2.4rem, 3.6vw, 4.8rem) !important;
+    }
+
     slideshow-component .slideshow__text .banner__text {
       font-size: clamp(1.4rem, 1.5vw, 2rem);
       line-height: 1.4;
@@ -107,7 +129,7 @@
     }
 
     slideshow-component .slideshow__subheading--extra-extra-large {
-      font-size: clamp(4rem, 9vw, 11rem) !important;
+      font-size: clamp(5rem, 10vw, 11rem) !important;
     }
   }
 {%- endstyle -%}
@@ -271,7 +293,7 @@
         <div class="slideshow__text-wrapper banner__content banner__content--{{ block.settings.box_align }} page-width{% if block.settings.show_text_box == false %} banner--desktop-transparent{% endif %}{% if settings.animations_reveal_on_scroll and forloop.index == 1 %} scroll-trigger animate--slide-in{% endif %}">
           <div class="slideshow__text banner__box content-container content-container--full-width-mobile color-{{ block.settings.color_scheme }} gradient slideshow__text--{{ block.settings.text_alignment }} slideshow__text-mobile--{{ block.settings.text_alignment_mobile }}">
             {%- if block.settings.heading != blank -%}
-              <h2 class="banner__heading inline-richtext {{ block.settings.heading_size }}">
+              <h2 class="banner__heading inline-richtext slideshow__reference-heading {{ block.settings.heading_size }}">
                 {{ block.settings.heading }}
               </h2>
             {%- endif -%}
