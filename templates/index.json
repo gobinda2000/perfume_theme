@@ -63,7 +63,7 @@
             "heading_size": "h1",
             "subheading": "SALE",
             "subheading_size": 204,
-            "button_label": "Button label",
+            "button_label": "SHOP NOW",
             "link": "",
             "button_style_secondary": true,
             "show_text_box": false,
@@ -125,6 +125,7 @@
         "auto_rotate": false,
         "change_slides_speed": 5,
         "image_behavior": "none",
+        "text_animation": "bottom_to_top",
         "show_text_below": false,
         "accessibility_info": "Slideshow about our brand"
       }
