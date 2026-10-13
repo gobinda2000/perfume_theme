@@ -6,8 +6,8 @@
 <div
   class="marquee-section color-{{ section.settings.color_scheme }} gradient"
   style="
-    --marquee-background: {{ section.settings.background_color }};
-    --marquee-foreground: {{ section.settings.text_color }};
+    --marquee-background: {{ section.settings.background_color | default: '#C8104F' }};
+    --marquee-foreground: {{ section.settings.text_color | default: '#FFFFFF' }};
     --marquee-speed: {{ marquee_speed }}s;
     --marquee-text-size: {{ section.settings.text_size }}px;
     --marquee-mobile-text-size: {{ section.settings.mobile_text_size }}px;
@@ -50,7 +50,8 @@
 
 {% stylesheet %}
   .marquee-section {
-    background: var(--marquee-background, rgb(var(--color-background)));
+    background-color: var(--marquee-background, #C8104F) !important;
+    background-image: none !important;
     overflow: hidden;
     color: var(--marquee-foreground, rgb(var(--color-foreground)));
   }
