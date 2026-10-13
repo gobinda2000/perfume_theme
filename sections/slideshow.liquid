@@ -21,6 +21,45 @@
     font-size: var(--slideshow-subheading-size, 16px);
   }
 
+  @keyframes slideshow-text-bottom-up {
+    from {
+      opacity: 0;
+      transform: translateY(3rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  slideshow-component [data-text-animation='bottom_to_top'] .slideshow__slide[aria-hidden='false'] .banner__heading,
+  slideshow-component [data-text-animation='bottom_to_top'] .slideshow__slide[aria-hidden='false'] .banner__text,
+  slideshow-component [data-text-animation='bottom_to_top'] .slideshow__slide[aria-hidden='false'] .banner__buttons {
+    opacity: 0;
+    animation: slideshow-text-bottom-up 700ms ease-out forwards;
+  }
+
+  slideshow-component [data-text-animation='bottom_to_top'] .slideshow__slide[aria-hidden='false'] .banner__heading {
+    animation-delay: 100ms;
+  }
+
+  slideshow-component [data-text-animation='bottom_to_top'] .slideshow__slide[aria-hidden='false'] .banner__text {
+    animation-delay: 300ms;
+  }
+
+  slideshow-component [data-text-animation='bottom_to_top'] .slideshow__slide[aria-hidden='false'] .banner__buttons {
+    animation-delay: 500ms;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    slideshow-component [data-text-animation='bottom_to_top'] .slideshow__slide[aria-hidden='false'] .banner__heading,
+    slideshow-component [data-text-animation='bottom_to_top'] .slideshow__slide[aria-hidden='false'] .banner__text,
+    slideshow-component [data-text-animation='bottom_to_top'] .slideshow__slide[aria-hidden='false'] .banner__buttons {
+      opacity: 1;
+      animation: none;
+    }
+  }
+
   @media screen and (min-width: 750px) {
     slideshow-component {
       position: relative;
@@ -174,6 +213,7 @@
   <div
     class="slideshow banner banner--{{ section.settings.slide_height }} grid grid--1-col slider slider--everywhere{% if section.settings.show_text_below %} banner--mobile-bottom{% endif %}{% if section.blocks.first.settings.image == blank %} slideshow--placeholder{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
     id="Slider-{{ section.id }}"
+    data-text-animation="{{ section.settings.text_animation }}"
     aria-live="polite"
     aria-atomic="true"
     data-autoplay="{{ section.settings.auto_rotate }}"
@@ -438,6 +478,22 @@
       ],
       "default": "none",
       "label": "t:sections.all.animation.image_behavior.label"
+    },
+    {
+      "type": "select",
+      "id": "text_animation",
+      "options": [
+        {
+          "value": "bottom_to_top",
+          "label": "Bottom to top"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "bottom_to_top",
+      "label": "Slideshow text animation"
     },
     {
       "type": "header",
