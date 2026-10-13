@@ -202,13 +202,20 @@
       flex: 0 0 20rem;
       height: 100%;
       padding: 0 2rem;
-      border: 0;
+      border: 0 !important;
       border-right: 0.1rem solid rgba(var(--color-foreground), 0.12);
       background: transparent;
       color: rgb(var(--color-foreground));
       font-family: var(--font-body-family);
       font-size: var(--font-body-size, 14px);
       font-weight: var(--font-body-weight-bold, 600);
+      outline: 0;
+      box-shadow: none;
+    }
+
+    details[open] > .search-modal .search-modal__category:focus {
+      outline: 0;
+      box-shadow: none;
     }
 
     details[open] > .search-modal .search__input.field__input {
@@ -221,6 +228,11 @@
       font-family: var(--font-body-family);
       font-size: var(--font-body-size, 14px);
       font-weight: var(--font-body-weight-bold, 600);
+    }
+
+    details[open] > .search-modal .search__input.field__input::placeholder {
+      opacity: 1;
+      color: rgba(var(--color-foreground), 0.6);
     }
 
     details[open] > .search-modal .field__label {
@@ -368,6 +380,11 @@
       border: 0;
       box-shadow: none;
       font-size: 1.4rem;
+    }
+
+    details[open] > .search-modal .search__input.field__input::placeholder {
+      opacity: 1;
+      color: rgba(var(--color-foreground), 0.6);
     }
 
     details[open] > .search-modal .field__label {
