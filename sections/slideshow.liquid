@@ -2,6 +2,66 @@
 {{ 'component-slider.css' | asset_url | stylesheet_tag }}
 {{ 'component-slideshow.css' | asset_url | stylesheet_tag }}
 
+{%- style -%}
+  @media screen and (min-width: 750px) {
+    slideshow-component {
+      position: relative;
+    }
+
+    slideshow-component .slideshow__controls--overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      border: 0;
+      pointer-events: none;
+      justify-content: space-between;
+    }
+
+    slideshow-component .slideshow__controls--overlay .slider-button {
+      width: 6.4rem;
+      height: 6.4rem;
+      margin: auto 1.5rem;
+      border: 0.1rem solid rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      color: #ffffff;
+      pointer-events: auto;
+    }
+
+    slideshow-component .slideshow__controls--overlay .slider-counter {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: max-content;
+      margin: 0 auto;
+      padding: 1.6rem 2.4rem;
+      color: #ffffff;
+      pointer-events: none;
+    }
+
+    slideshow-component .slideshow__controls--overlay .slideshow__autoplay {
+      top: 1.5rem;
+      right: 1.5rem;
+      bottom: auto;
+      margin: 0;
+    }
+
+    slideshow-component .slideshow__controls--overlay .slideshow__autoplay .svg-wrapper {
+      pointer-events: auto;
+    }
+
+    slideshow-component .slideshow__text .banner__heading {
+      font-size: clamp(2.4rem, 4vw, 5.6rem);
+      line-height: 1.1;
+    }
+
+    slideshow-component .slideshow__text .banner__text {
+      font-size: clamp(1.4rem, 1.5vw, 2rem);
+      line-height: 1.4;
+    }
+  }
+{%- endstyle -%}
+
 {%- if section.settings.slide_height == 'adapt_image' and section.blocks.first.settings.image != blank -%}
   {%- style -%}
     @media screen and (max-width: 749px) {
@@ -32,7 +92,7 @@
   aria-label="{{ section.settings.accessibility_info | escape }}"
 >
   {%- if section.settings.auto_rotate and section.blocks.size > 1 -%}
-    <div class="slideshow__controls slideshow__controls--top slider-buttons{% if section.settings.show_text_below %} slideshow__controls--border-radius-mobile{% endif %}">
+    <div class="slideshow__controls slideshow__controls--top slideshow__controls--overlay slider-buttons{% if section.settings.show_text_below %} slideshow__controls--border-radius-mobile{% endif %}">
       <button
         type="button"
         class="slider-button slider-button--prev"
@@ -191,7 +251,7 @@
   </div>
 
   {%- if section.blocks.size > 1 and section.settings.auto_rotate == false -%}
-    <div class="slideshow__controls slider-buttons{% if section.settings.show_text_below %} slideshow__controls--border-radius-mobile{% endif %}">
+    <div class="slideshow__controls slideshow__controls--overlay slider-buttons{% if section.settings.show_text_below %} slideshow__controls--border-radius-mobile{% endif %}">
       <button
         type="button"
         class="slider-button slider-button--prev"
