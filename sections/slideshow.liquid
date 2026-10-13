@@ -3,6 +3,18 @@
 {{ 'component-slideshow.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
+  slideshow-component .slideshow__subheading--small {
+    font-size: 1.3rem;
+  }
+
+  slideshow-component .slideshow__subheading--medium {
+    font-size: 1.6rem;
+  }
+
+  slideshow-component .slideshow__subheading--large {
+    font-size: 1.9rem;
+  }
+
   @media screen and (min-width: 750px) {
     slideshow-component {
       position: relative;
@@ -58,6 +70,18 @@
     slideshow-component .slideshow__text .banner__text {
       font-size: clamp(1.4rem, 1.5vw, 2rem);
       line-height: 1.4;
+    }
+
+    slideshow-component .slideshow__subheading--small {
+      font-size: 1.4rem !important;
+    }
+
+    slideshow-component .slideshow__subheading--medium {
+      font-size: 1.8rem !important;
+    }
+
+    slideshow-component .slideshow__subheading--large {
+      font-size: 2.2rem !important;
     }
   }
 {%- endstyle -%}
@@ -226,7 +250,7 @@
               </h2>
             {%- endif -%}
             {%- if block.settings.subheading != blank -%}
-              <div class="banner__text rte">
+              <div class="banner__text rte slideshow__subheading--{{ block.settings.subheading_size | default: 'medium' }}">
                 <p>{{ block.settings.subheading }}</p>
               </div>
             {%- endif -%}
@@ -508,6 +532,26 @@
           "id": "subheading",
           "default": "t:sections.slideshow.blocks.slide.settings.subheading.default",
           "label": "t:sections.slideshow.blocks.slide.settings.subheading.label"
+        },
+        {
+          "type": "select",
+          "id": "subheading_size",
+          "options": [
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            }
+          ],
+          "default": "medium",
+          "label": "Subheading size"
         },
         {
           "type": "header",
