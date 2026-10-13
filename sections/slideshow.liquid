@@ -15,6 +15,14 @@
     font-size: 1.9rem;
   }
 
+  slideshow-component .slideshow__subheading--extra-large {
+    font-size: 2.3rem;
+  }
+
+  slideshow-component .slideshow__subheading--extra-extra-large {
+    font-size: 2.8rem;
+  }
+
   @media screen and (min-width: 750px) {
     slideshow-component {
       position: relative;
@@ -82,6 +90,14 @@
 
     slideshow-component .slideshow__subheading--large {
       font-size: 2.2rem !important;
+    }
+
+    slideshow-component .slideshow__subheading--extra-large {
+      font-size: 2.8rem !important;
+    }
+
+    slideshow-component .slideshow__subheading--extra-extra-large {
+      font-size: 3.4rem !important;
     }
   }
 {%- endstyle -%}
@@ -548,6 +564,14 @@
             {
               "value": "large",
               "label": "Large"
+            },
+            {
+              "value": "extra-large",
+              "label": "Extra large"
+            },
+            {
+              "value": "extra-extra-large",
+              "label": "Extra extra large"
             }
           ],
           "default": "medium",
