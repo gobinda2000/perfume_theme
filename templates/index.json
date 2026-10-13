@@ -103,7 +103,7 @@
             "subheading_size": 105,
             "button_label": "Button label",
             "link": "",
-            "button_style_secondary": false,
+            "button_style_secondary": true,
             "show_text_box": false,
             "box_align": "middle-right",
             "text_alignment": "center",
