@@ -1,0 +1,302 @@
+{%- liquid
+  assign marquee_speed = section.settings.speed | default: 15
+  assign marquee_direction = section.settings.direction | default: 'left'
+-%}
+
+<div
+  class="marquee-section color-{{ section.settings.color_scheme }} gradient"
+  style="
+    --marquee-background: {{ section.settings.background_color }};
+    --marquee-foreground: {{ section.settings.text_color }};
+    --marquee-speed: {{ marquee_speed }}s;
+    --marquee-text-size: {{ section.settings.text_size }}px;
+    --marquee-mobile-text-size: {{ section.settings.mobile_text_size }}px;
+    --marquee-padding: {{ section.settings.padding }}px;
+  "
+  role="region"
+  aria-label="{{ section.settings.accessibility_label | escape }}"
+>
+  <div class="marquee-section__viewport">
+    <div
+      class="marquee-section__track marquee-section__track--{{ marquee_direction }}"
+      {% if section.settings.pause_on_hover %}data-pause-on-hover{% endif %}
+    >
+      {%- for repeat in (1..2) -%}
+        <div class="marquee-section__group"{% if repeat == 2 %} aria-hidden="true"{% endif %}>
+          {%- for block in section.blocks -%}
+            {%- if block.settings.text != blank -%}
+              <span
+                class="marquee-section__item{% if block.settings.emphasis %} marquee-section__item--emphasis{% endif %}"
+                {{ block.shopify_attributes }}
+              >
+                {%- if block.settings.link != blank -%}
+                  <a href="{{ block.settings.link }}" class="marquee-section__link">
+                {%- endif -%}
+                {{ block.settings.text | escape }}
+                {%- if block.settings.link != blank -%}
+                  </a>
+                {%- endif -%}
+              </span>
+              {%- unless forloop.last -%}
+                <span class="marquee-section__separator" aria-hidden="true">{{ section.settings.separator }}</span>
+              {%- endunless -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .marquee-section {
+    background: var(--marquee-background, rgb(var(--color-background)));
+    overflow: hidden;
+    color: var(--marquee-foreground, rgb(var(--color-foreground)));
+  }
+
+  .marquee-section__viewport {
+    overflow: hidden;
+    padding: var(--marquee-padding) 0;
+  }
+
+  .marquee-section__track {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll var(--marquee-speed) linear infinite;
+    will-change: transform;
+  }
+
+  .marquee-section__track--right {
+    animation-name: marquee-scroll-reverse;
+  }
+
+  .marquee-section__track[data-pause-on-hover]:hover {
+    animation-play-state: paused;
+  }
+
+  .marquee-section__group {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 3.5rem;
+    padding-right: 3.5rem;
+    white-space: nowrap;
+  }
+
+  .marquee-section__item,
+  .marquee-section__link {
+    color: inherit;
+    font-size: var(--marquee-text-size);
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .marquee-section__item--emphasis {
+    font-weight: 700;
+  }
+
+  .marquee-section__separator {
+    font-size: var(--marquee-text-size);
+    line-height: 1;
+  }
+
+  @media screen and (max-width: 749px) {
+    .marquee-section__item,
+    .marquee-section__link,
+    .marquee-section__separator {
+      font-size: var(--marquee-mobile-text-size);
+    }
+  }
+
+  .marquee-section__link:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+  }
+
+  @keyframes marquee-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes marquee-scroll-reverse {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-section__track {
+      animation: none;
+      transform: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Marquee",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#C8104F"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "s",
+      "label": "Animation speed",
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "options": [
+        {
+          "value": "left",
+          "label": "Move left"
+        },
+        {
+          "value": "right",
+          "label": "Move right"
+        }
+      ],
+      "default": "left",
+      "label": "Direction"
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause when hovered",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "separator",
+      "label": "Message separator",
+      "default": "•"
+    },
+    {
+      "type": "header",
+      "content": "Typography and spacing"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "mobile_text_size",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile text size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 8,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Vertical spacing",
+      "default": 20
+    },
+    {
+      "type": "text",
+      "id": "accessibility_label",
+      "label": "Accessibility label",
+      "default": "Promotional announcements"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Black Friday"
+        },
+        {
+          "type": "checkbox",
+          "id": "emphasis",
+          "label": "Emphasize text",
+          "default": false
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Marquee",
+      "blocks": [
+        {
+          "type": "message",
+          "settings": {
+            "text": "Black Friday",
+            "emphasis": true
+          }
+        },
+        {
+          "type": "message",
+          "settings": {
+            "text": "End of season sale"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
