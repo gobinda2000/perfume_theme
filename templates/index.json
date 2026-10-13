@@ -62,7 +62,7 @@
             "heading": "END OF SEASON",
             "heading_size": "h1",
             "subheading": "SALE",
-            "subheading_size": 63,
+            "subheading_size": 204,
             "button_label": "Button label",
             "link": "",
             "button_style_secondary": true,
@@ -78,18 +78,18 @@
           "settings": {
             "image": "shopify://shop_images/index_v1_2a.webp",
             "image_overlay_opacity": 0,
-            "heading": "Image slide",
+            "heading": "PERFUME FOR WOMEN",
             "heading_size": "h1",
-            "subheading": "Tell your brand's story through images",
-            "subheading_size": 15,
+            "subheading": "SEDUCTIVE FREGRENCE",
+            "subheading_size": 84,
             "button_label": "Button label",
             "link": "",
             "button_style_secondary": false,
             "show_text_box": false,
-            "box_align": "middle-center",
+            "box_align": "middle-left",
             "text_alignment": "center",
             "text_alignment_mobile": "center",
-            "color_scheme": ""
+            "color_scheme": "scheme-3"
           }
         },
         "slide_VPLrTP": {
@@ -97,18 +97,18 @@
           "settings": {
             "image": "shopify://shop_images/index_v1_3a.webp",
             "image_overlay_opacity": 0,
-            "heading": "Image slide",
+            "heading": "SALE 40% OFF",
             "heading_size": "h1",
-            "subheading": "Tell your brand's story through images",
-            "subheading_size": 15,
+            "subheading": "UNISEX PERFUME",
+            "subheading_size": 105,
             "button_label": "Button label",
             "link": "",
             "button_style_secondary": false,
             "show_text_box": false,
-            "box_align": "middle-center",
+            "box_align": "middle-right",
             "text_alignment": "center",
             "text_alignment_mobile": "center",
-            "color_scheme": ""
+            "color_scheme": "scheme-4"
           }
         }
       },
