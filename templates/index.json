@@ -60,9 +60,9 @@
             "image": "shopify://shop_images/index_v1_1a.webp",
             "image_overlay_opacity": 0,
             "heading": "END OF SEASON",
-            "heading_size": "h2",
+            "heading_size": "h1",
             "subheading": "SALE",
-            "subheading_size": 204,
+            "subheading_size": 63,
             "button_label": "Button label",
             "link": "",
             "button_style_secondary": true,
@@ -78,18 +78,18 @@
           "settings": {
             "image": "shopify://shop_images/index_v1_2a.webp",
             "image_overlay_opacity": 0,
-            "heading": "PERFUME FOR WOMEN",
+            "heading": "Image slide",
             "heading_size": "h1",
-            "subheading": "SEDUCTIVE FREGRENCE",
-            "subheading_size": 84,
+            "subheading": "Tell your brand's story through images",
+            "subheading_size": 15,
             "button_label": "Button label",
             "link": "",
             "button_style_secondary": false,
             "show_text_box": false,
-            "box_align": "middle-left",
+            "box_align": "middle-center",
             "text_alignment": "center",
             "text_alignment_mobile": "center",
-            "color_scheme": "scheme-3"
+            "color_scheme": ""
           }
         },
         "slide_VPLrTP": {
@@ -97,18 +97,18 @@
           "settings": {
             "image": "shopify://shop_images/index_v1_3a.webp",
             "image_overlay_opacity": 0,
-            "heading": "SALE 40% OFF",
+            "heading": "Image slide",
             "heading_size": "h1",
-            "subheading": "UNISEX PERFUME",
-            "subheading_size": 105,
+            "subheading": "Tell your brand's story through images",
+            "subheading_size": 15,
             "button_label": "Button label",
             "link": "",
             "button_style_secondary": false,
             "show_text_box": false,
-            "box_align": "middle-right",
+            "box_align": "middle-center",
             "text_alignment": "center",
             "text_alignment_mobile": "center",
-            "color_scheme": "scheme-4"
+            "color_scheme": ""
           }
         }
       },
