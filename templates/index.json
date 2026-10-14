@@ -102,7 +102,7 @@
             "subheading": "UNISEX PERFUME",
             "subheading_size": 105,
             "button_label": "SHOP NOW",
-            "link": "",
+            "link": "shopify://collections",
             "button_style_secondary": true,
             "show_text_box": false,
             "box_align": "middle-right",
