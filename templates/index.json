@@ -214,7 +214,7 @@
         "featured_collection_dfanj7": {
           "type": "featured_collection",
           "settings": {
-            "collection": ""
+            "collection": "frontpage"
           }
         }
       },
