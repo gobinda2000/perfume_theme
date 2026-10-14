@@ -83,7 +83,7 @@
             "subheading": "SEDUCTIVE FREGRENCE",
             "subheading_size": 84,
             "button_label": "SHOP NOW",
-            "link": "",
+            "link": "shopify://pages/wishlist",
             "button_style_secondary": true,
             "show_text_box": false,
             "box_align": "middle-left",
