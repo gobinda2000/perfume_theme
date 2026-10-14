@@ -64,7 +64,7 @@
             "subheading": "SALE",
             "subheading_size": 204,
             "button_label": "Button label",
-            "link": "",
+            "link": "shopify://blogs/news",
             "button_style_secondary": true,
             "show_text_box": false,
             "box_align": "middle-right",
