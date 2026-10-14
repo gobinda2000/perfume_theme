@@ -8,6 +8,100 @@
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
 
+  .section-{{ section.id }} .collection-list-title {
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .section-{{ section.id }} .title-wrapper-with-link {
+    justify-content: center;
+  }
+
+  .section-{{ section.id }} .collection-list-intro {
+    max-width: 62rem;
+    margin: 1rem auto 0;
+    text-align: center;
+    color: rgba(var(--color-foreground), 0.75);
+  }
+
+  .section-{{ section.id }} .collection-list__item .card__inner,
+  .section-{{ section.id }} .collection-list__item .card__media {
+    border-radius: 1rem;
+  }
+
+  .section-{{ section.id }} .collection-list__item .card__information {
+    text-align: center;
+  }
+
+  .section-{{ section.id }} .collection-list__item .card__heading {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  @media screen and (min-width: 990px) {
+    .section-{{ section.id }} slider-component {
+      position: relative;
+      padding: 0 4.5rem;
+    }
+
+    .section-{{ section.id }} .collection-list.slider--desktop {
+      flex-wrap: inherit;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .section-{{ section.id }} .collection-list.slider--desktop::-webkit-scrollbar {
+      display: none;
+    }
+
+    .section-{{ section.id }} .collection-list.slider--desktop .collection-list__item {
+      width: calc((100% - 3rem) / 3);
+      max-width: calc((100% - 3rem) / 3);
+      flex: 0 0 calc((100% - 3rem) / 3);
+      align-self: center;
+      transition: transform 0.25s ease;
+    }
+
+    .section-{{ section.id }} .collection-list.slider--desktop .collection-list__item:nth-child(2) {
+      transform: scale(1.12);
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-{{ section.id }} .collection-list-slider-buttons {
+      position: absolute;
+      inset: 50% 0 auto;
+      z-index: 2;
+      justify-content: space-between;
+      margin-top: 0;
+      pointer-events: none;
+      transform: translateY(-50%);
+    }
+
+    .section-{{ section.id }} .collection-list-slider-buttons .slider-button {
+      width: 4.4rem;
+      height: 4.4rem;
+      border: 0.1rem solid rgba(var(--color-foreground), 0.75);
+      border-radius: 50%;
+      background: rgb(var(--color-background));
+      pointer-events: auto;
+    }
+
+    .section-{{ section.id }} .collection-list-slider-buttons .slider-counter {
+      display: none;
+    }
+
+    .section-{{ section.id }} .collection-list-slider-buttons .slider-button[disabled] {
+      opacity: 1;
+      color: rgba(var(--color-foreground), 0.75);
+      cursor: pointer;
+    }
+  }
+
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
@@ -21,6 +115,10 @@
   assign show_mobile_slider = false
   if section.settings.swipe_on_mobile and section.blocks.size > columns_mobile_int
     assign show_mobile_slider = true
+  endif
+  assign show_desktop_slider = false
+  if section.settings.swipe_on_desktop and section.blocks.size > 1
+    assign show_desktop_slider = true
   endif
 -%}
 
@@ -46,11 +144,16 @@
           </a>
         {%- endif -%}
       </div>
+      {%- unless section.settings.description == blank -%}
+        <div class="collection-list-intro rte">
+          {{ section.settings.description }}
+        </div>
+      {%- endunless -%}
     {%- endunless -%}
 
     <slider-component class="slider-mobile-gutter{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       <ul
-        class="collection-list contains-card contains-card--collection{% if settings.card_style == 'standard' %} contains-card--standard{% endif %} grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down{% if section.settings.swipe_on_mobile %} slider slider--tablet grid--peek{% endif %} collection-list--{{ section.blocks.size }}-items"
+        class="collection-list contains-card contains-card--collection{% if settings.card_style == 'standard' %} contains-card--standard{% endif %} grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down{% if show_mobile_slider %} slider slider--tablet grid--peek{% endif %}{% if show_desktop_slider %} slider slider--desktop{% endif %} collection-list--{{ section.blocks.size }}-items"
         id="Slider-{{ section.id }}"
         role="list"
       >
@@ -81,8 +184,8 @@
           </li>
         {%- endfor -%}
       </ul>
-      {%- if show_mobile_slider -%}
-        <div class="slider-buttons">
+      {%- if show_mobile_slider or show_desktop_slider -%}
+        <div class="slider-buttons collection-list-slider-buttons">
           <button
             type="button"
             class="slider-button slider-button--prev"
@@ -148,6 +251,11 @@
       "id": "title",
       "default": "t:sections.collection-list.settings.title.default",
       "label": "t:sections.collection-list.settings.title.label"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
     },
     {
       "type": "select",
@@ -249,6 +357,12 @@
       "id": "swipe_on_mobile",
       "default": false,
       "label": "t:sections.collection-list.settings.swipe_on_mobile.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "swipe_on_desktop",
+      "default": true,
+      "label": "Enable desktop carousel"
     },
     {
       "type": "header",
