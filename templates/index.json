@@ -155,9 +155,9 @@
         "message_end_of_season"
       ],
       "settings": {
-        "color_scheme": "scheme-4",
-        "background_color": "#E7105A",
-        "text_color": "#F5EBEB",
+        "color_scheme": "scheme-3",
+        "background_color": "#e7105a",
+        "text_color": "#f5ebeb",
         "speed": 5,
         "direction": "left",
         "pause_on_hover": true,
