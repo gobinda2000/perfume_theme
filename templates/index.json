@@ -234,7 +234,7 @@
       "name": "t:sections.collection-list.presets.name",
       "settings": {
         "title": "&nbsp;Shop by Categories&nbsp;",
-        "description": "",
+        "description": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry<br/><br/></p>",
         "heading_size": "h1",
         "image_ratio": "portrait",
         "columns_desktop": 3,
