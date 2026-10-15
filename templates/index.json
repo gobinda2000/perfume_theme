@@ -130,6 +130,15 @@
         "accessibility_info": "Slideshow about our brand"
       }
     },
+    "promotional_marquee": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<style>.home-promo-marquee{overflow:hidden;background:#c8104f;color:#fff}.home-promo-marquee__track{display:flex;width:max-content;animation:home-promo-marquee-scroll 18s linear infinite}.home-promo-marquee__group{display:flex;align-items:center;gap:3.5rem;padding:1.8rem 3.5rem 1.8rem 0;white-space:nowrap}.home-promo-marquee__item{font-size:clamp(1.8rem,2.4vw,3rem);font-weight:400}.home-promo-marquee__item--strong{font-weight:700}@keyframes home-promo-marquee-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}@media(prefers-reduced-motion:reduce){.home-promo-marquee__track{animation:none}}</style><div class=\"home-promo-marquee\" role=\"region\" aria-label=\"Promotional announcements\"><div class=\"home-promo-marquee__track\"><div class=\"home-promo-marquee__group\"><span class=\"home-promo-marquee__item\">END OF SEASON SALE</span><span aria-hidden=\"true\">•</span><span class=\"home-promo-marquee__item home-promo-marquee__item--strong\">BLACK FRIDAY</span><span aria-hidden=\"true\">•</span></div><div class=\"home-promo-marquee__group\" aria-hidden=\"true\"><span class=\"home-promo-marquee__item\">END OF SEASON SALE</span><span aria-hidden=\"true\">•</span><span class=\"home-promo-marquee__item home-promo-marquee__item--strong\">BLACK FRIDAY</span><span aria-hidden=\"true\">•</span></div></div></div>",
+        "color_scheme": "scheme-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "featured_collection": {
       "type": "featured-collection",
       "disabled": true,
@@ -253,6 +262,7 @@
   "order": [
     "image_banner",
     "slideshow_gMEz3Q",
+    "promotional_marquee",
     "featured_collection",
     "collection_list_L6fdJL",
     "marquee_bar_q7eNG3"
