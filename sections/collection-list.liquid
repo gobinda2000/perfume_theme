@@ -50,13 +50,15 @@
       display: flex;
       flex-wrap: nowrap;
       gap: 2%;
-      justify-content: center;
-      overflow: visible;
+      justify-content: flex-start;
+      overflow-x: auto;
+      overflow-y: hidden;
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
       width: 92%;
+      margin: 0 auto;
     }
 
     .section-{{ section.id }}-padding .collection-list.slider--desktop::-webkit-scrollbar {
@@ -71,32 +73,30 @@
       max-width: 29.5%;
     }
 
-    .section-{{ section.id }}-padding .collection-list.slider--desktop .collection-list__item:nth-child(2) {
-      position: relative;
-      z-index: 1;
+    .section-{{ section.id }}-padding .collection-list.slider--desktop .collection-list__item.is-center {
       flex-basis: 32.8%;
       width: 32.8%;
       max-width: 32.8%;
     }
 
+    .section-{{ section.id }}-padding .collection-list.slider--desktop .collection-list__item:first-child {
+      margin-left: 0;
+      scroll-margin-left: 0;
+    }
+
     .section-{{ section.id }}-padding .collection-list-slider-buttons {
       position: absolute;
       top: 45%;
-      right: -24px;
-      left: 41px;
+      right: -5.5rem;
+      left: -5.5rem;
       z-index: 2;
       display: flex;
       justify-content: space-between;
       margin: 0;
       pointer-events: none;
       transform: translateY(-50%);
-      opacity: 0;
-      transition: opacity 0.2s ease;
-    }
-
-    .section-{{ section.id }}-padding slider-component:hover .collection-list-slider-buttons,
-    .section-{{ section.id }}-padding slider-component:focus-within .collection-list-slider-buttons {
       opacity: 1;
+      transition: opacity 0.2s ease;
     }
 
     .section-{{ section.id }}-padding .collection-list-slider-buttons .slider-button {
@@ -185,7 +185,7 @@
         {%- for block in section.blocks -%}
           <li
             id="Slide-{{ section.id }}-{{ forloop.index }}"
-            class="collection-list__item grid__item{% if show_mobile_slider or show_desktop_slider %} slider__slide{% endif %}{% if block.settings.collection.featured_image == nil %} collection-list__item--no-media{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            class="collection-list__item grid__item{% if forloop.index == 2 %} is-center{% endif %}{% if show_mobile_slider or show_desktop_slider %} slider__slide{% endif %}{% if block.settings.collection.featured_image == nil %} collection-list__item--no-media{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
             {{ block.shopify_attributes }}
             {% if settings.animations_reveal_on_scroll %}
               data-cascade
@@ -254,6 +254,32 @@
     {%- endif -%}
   </div>
 </div>
+
+<script>
+  (() => {
+    const slider = document.querySelector('#Slider-{{ section.id }}');
+    if (!slider) return;
+    const sliderComponent = slider.closest('slider-component');
+    let centerIndex = 1;
+
+    const updateCenterCard = (index) => {
+      const items = slider.querySelectorAll('.collection-list__item');
+      centerIndex = Math.max(0, Math.min(index, items.length - 1));
+      items.forEach((item, itemIndex) => {
+        item.classList.toggle('is-center', itemIndex === centerIndex);
+      });
+    };
+
+    sliderComponent?.querySelector('button[name="previous"]')?.addEventListener('click', () => {
+      updateCenterCard(centerIndex - 1);
+    });
+    sliderComponent?.querySelector('button[name="next"]')?.addEventListener('click', () => {
+      updateCenterCard(centerIndex + 1);
+    });
+    window.addEventListener('resize', () => updateCenterCard(centerIndex));
+    updateCenterCard(1);
+  })();
+</script>
 
 {% schema %}
 {
