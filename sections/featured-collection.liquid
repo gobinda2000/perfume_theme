@@ -3,6 +3,8 @@
 
 {{ 'component-slider.css' | asset_url | stylesheet_tag }}
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
+{{ 'quick-add.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 
 {% if section.settings.image_shape == 'blob' %}
   {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
@@ -28,6 +30,229 @@
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  #collection-{{ section.id }} .product-grid {
+    column-gap: 3.2rem;
+    row-gap: 3.2rem;
+  }
+
+  #collection-{{ section.id }} .quick-add {
+    display: none;
+  }
+
+  @media screen and (min-width: 990px) {
+    #collection-{{ section.id }} .slider-component-desktop {
+      position: relative;
+      padding: 0 4.8rem;
+    }
+
+    #collection-{{ section.id }} .slider-component-desktop .slider-buttons {
+      position: absolute;
+      z-index: 4;
+      top: 38%;
+      right: 0;
+      left: 0;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+
+    #collection-{{ section.id }} .slider-component-desktop .slider-button {
+      width: 4.4rem;
+      height: 4.4rem;
+      border: 0.1rem solid currentColor;
+      border-radius: 50%;
+      background: #fff;
+      pointer-events: auto;
+    }
+
+    #collection-{{ section.id }} .slider-component-desktop .slider-button--prev {
+      transform: none;
+    }
+
+    #collection-{{ section.id }} .slider-component-desktop .slider-button--next {
+      transform: none;
+    }
+
+    #collection-{{ section.id }} .slider-component-desktop .slider-counter {
+      display: none;
+    }
+  }
+
+  #collection-{{ section.id }} .card__inner {
+    overflow: visible;
+  }
+
+  #collection-{{ section.id }} .reference-product-actions {
+    position: absolute;
+    z-index: 3;
+    right: 1.2rem;
+    bottom: 1.2rem;
+    display: grid;
+    gap: 0.4rem;
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  #collection-{{ section.id }} .card__inner:hover .reference-product-actions,
+  #collection-{{ section.id }} .card__inner:focus-within .reference-product-actions {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  #collection-{{ section.id }} .reference-product-action {
+    display: grid;
+    width: 4.4rem;
+    height: 4.4rem;
+    place-items: center;
+    border: 0;
+    background: #fff;
+    color: #111;
+    cursor: pointer;
+    box-shadow: 0 0.1rem 0.5rem rgb(0 0 0 / 12%);
+  }
+
+  #collection-{{ section.id }} .reference-product-action:hover,
+  #collection-{{ section.id }} .reference-product-action:focus-visible {
+    background: #111;
+    color: #fff;
+  }
+
+  #collection-{{ section.id }} .reference-product-action svg {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  #collection-{{ section.id }} .quick-view-modal {
+    position: fixed;
+    z-index: 100;
+    inset: 0;
+    display: none;
+    place-items: center;
+    padding: 2rem;
+    background: rgb(0 0 0 / 70%);
+  }
+
+  #collection-{{ section.id }} .quick-view-modal.is-open {
+    display: grid;
+  }
+
+  #collection-{{ section.id }} .quick-view-modal__content {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    width: min(100%, 112rem);
+    max-height: 90vh;
+    overflow: auto;
+    padding: 2.4rem;
+    background: #fff;
+  }
+
+  #collection-{{ section.id }} .quick-view-modal__image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42rem;
+    background: #f7f7f7;
+  }
+
+  #collection-{{ section.id }} .quick-view-modal__image img {
+    width: 100%;
+    height: 100%;
+    max-height: 52rem;
+    object-fit: contain;
+  }
+
+  #collection-{{ section.id }} .quick-view-modal__details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem;
+  }
+
+  #collection-{{ section.id }} .quick-view-modal__vendor {
+    margin: 0 0 1rem;
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  #collection-{{ section.id }} .quick-view-modal__price {
+    margin-bottom: 2.4rem;
+  }
+
+  #collection-{{ section.id }} .quick-view-modal__variant-label,
+  #collection-{{ section.id }} .quick-view-modal__quantity-label {
+    display: block;
+    margin: 1.6rem 0 0.8rem;
+  }
+
+  #collection-{{ section.id }} .quick-view-modal__variant-select,
+  #collection-{{ section.id }} .quick-view-modal__quantity {
+    width: 100%;
+    min-height: 4.4rem;
+    padding: 0 1.2rem;
+    border: 0.1rem solid #bdbdbd;
+    background: #fff;
+  }
+
+  #collection-{{ section.id }} .quick-view-modal__form .button {
+    margin-top: 2rem;
+  }
+
+  #collection-{{ section.id }} .quick-view-modal__buy-now {
+    margin-top: 1rem;
+    background: #111;
+    color: #fff;
+  }
+
+  #collection-{{ section.id }} .quick-view-modal__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1;
+    display: grid;
+    width: 4.4rem;
+    height: 4.4rem;
+    place-items: center;
+    border: 0.1rem solid #ddd;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  #collection-{{ section.id }} .quick-view-modal__close svg {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  #collection-{{ section.id }} .quick-view-modal__title {
+    margin: 0 0 2rem;
+  }
+
+  #collection-{{ section.id }} .quick-view-modal__form {
+    margin-top: 2.4rem;
+  }
+
+  #collection-{{ section.id }} .quick-view-modal__form .button {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 749px) {
+    #collection-{{ section.id }} .quick-view-modal__content {
+      grid-template-columns: 1fr;
+      padding: 1rem;
+    }
+
+    #collection-{{ section.id }} .quick-view-modal__image {
+      min-height: 28rem;
+    }
+
+    #collection-{{ section.id }} .quick-view-modal__details {
+      padding: 2.4rem 1.6rem;
+    }
   }
 
   @media screen and (min-width: 750px) {
@@ -128,6 +353,7 @@
                   skip_styles: skip_card_product_styles,
                   section_id: section.id,
                   quick_add: section.settings.quick_add,
+                  show_reference_actions: true,
                   product_view_context: 'collection'
                 %}
               </li>
@@ -214,6 +440,49 @@
     {%- endif -%}
   </div>
 </div>
+
+<script>
+  (() => {
+    const section = document.querySelector('#collection-{{ section.id }}');
+    if (!section || section.dataset.quickViewReady) return;
+    section.dataset.quickViewReady = 'true';
+
+    const closeModal = (modal) => {
+      modal.classList.remove('is-open');
+      modal.remove();
+      document.body.classList.remove('overflow-hidden');
+    };
+
+    section.addEventListener('click', (event) => {
+      const opener = event.target.closest('[data-quick-view-target]');
+      if (opener) {
+        const template = document.getElementById(opener.dataset.quickViewTarget);
+        if (!template) return;
+        const modal = template.content.firstElementChild.cloneNode(true);
+        section.appendChild(modal);
+        modal.classList.add('is-open');
+        document.body.classList.add('overflow-hidden');
+        modal.querySelector('.quick-view-modal__close')?.focus();
+        return;
+      }
+
+      const modal = event.target.closest('.quick-view-modal');
+      if (!modal) return;
+      if (
+        event.target === modal ||
+        event.target.closest('.quick-view-modal__close')
+      ) {
+        closeModal(modal);
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape') return;
+      const modal = document.querySelector('.quick-view-modal.is-open');
+      if (modal) closeModal(modal);
+    });
+  })();
+</script>
 
 {% schema %}
 {
