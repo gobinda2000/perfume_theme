@@ -130,42 +130,19 @@
         "accessibility_info": "Slideshow about our brand"
       }
     },
-    "marquee": {
+    "featured_product_marquee": {
       "type": "marquee-bar",
-      "blocks": {
-        "message_black_friday": {
-          "type": "message",
-          "settings": {
-            "text": "Black Friday",
-            "emphasis": true,
-            "link": ""
-          }
-        },
-        "message_end_of_season": {
-          "type": "message",
-          "settings": {
-            "text": "End of season sale",
-            "emphasis": false,
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "message_black_friday",
-        "message_end_of_season"
-      ],
       "settings": {
-        "color_scheme": "scheme-3",
-        "background_color": "#e7105a",
-        "text_color": "#f5ebeb",
-        "speed": 5,
-        "direction": "right",
-        "pause_on_hover": true,
-        "separator": "•",
-        "text_size": 24,
-        "mobile_text_size": 18,
-        "padding": 20,
-        "accessibility_label": "Promotional announcements"
+        "product": "",
+        "product_title": "Choose a featured product",
+        "description": "",
+        "button_label": "Choose options",
+        "marquee_text": "Sale off.",
+        "marquee_speed": 30,
+        "color_scheme": "scheme-1",
+        "background_color": "#f2f2f2",
+        "text_color": "#111111",
+        "accent_color": "#c8104f"
       }
     },
     "featured_collection": {
@@ -250,7 +227,7 @@
   "order": [
     "image_banner",
     "slideshow_gMEz3Q",
-    "marquee",
+    "featured_product_marquee",
     "featured_collection",
     "collection_list_L6fdJL"
   ]

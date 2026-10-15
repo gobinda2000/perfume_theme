@@ -1,301 +1,465 @@
 {%- liquid
-  assign marquee_speed = section.settings.speed | default: 15
-  assign marquee_direction = section.settings.direction | default: 'left'
+  assign featured_product = section.settings.product
+  assign product_count = section.blocks.size
 -%}
 
-<div
-  class="marquee-section color-{{ section.settings.color_scheme }} gradient"
+<section
+  class="featured-product-marquee color-{{ section.settings.color_scheme }} gradient"
+  id="FeaturedProductMarquee-{{ section.id }}"
   style="
-    --marquee-background: {{ section.settings.background_color | default: '#C8104F' }};
-    --marquee-foreground: {{ section.settings.text_color | default: '#FFFFFF' }};
-    --marquee-speed: {{ marquee_speed }}s;
-    --marquee-text-size: {{ section.settings.text_size }}px;
-    --marquee-mobile-text-size: {{ section.settings.mobile_text_size }}px;
-    --marquee-padding: {{ section.settings.padding }}px;
+    --featured-marquee-background: {{ section.settings.background_color }};
+    --featured-marquee-foreground: {{ section.settings.text_color }};
+    --featured-marquee-accent: {{ section.settings.accent_color }};
+    --featured-marquee-speed: {{ section.settings.marquee_speed }}s;
   "
-  role="region"
-  aria-label="{{ section.settings.accessibility_label | escape }}"
 >
-  <div class="marquee-section__viewport">
-    <div
-      class="marquee-section__track marquee-section__track--{{ marquee_direction }}"
-      {% if section.settings.pause_on_hover %}data-pause-on-hover{% endif %}
-    >
-      {%- for repeat in (1..2) -%}
-        <div class="marquee-section__group"{% if repeat == 2 %} aria-hidden="true"{% endif %}>
-          {%- for block in section.blocks -%}
-            {%- if block.settings.text != blank -%}
-              <span
-                class="marquee-section__item{% if block.settings.emphasis %} marquee-section__item--emphasis{% endif %}"
-                {{ block.shopify_attributes }}
-              >
-                {%- if block.settings.link != blank -%}
-                  <a href="{{ block.settings.link }}" class="marquee-section__link">
-                {%- endif -%}
-                {{ block.settings.text | escape }}
-                {%- if block.settings.link != blank -%}
-                  </a>
-                {%- endif -%}
-              </span>
-              {%- unless forloop.last -%}
-                <span class="marquee-section__separator" aria-hidden="true">{{ section.settings.separator }}</span>
-              {%- endunless -%}
-            {%- endif -%}
-          {%- endfor -%}
-        </div>
-      {%- endfor -%}
+  <div class="featured-product-marquee__background-text" aria-hidden="true">
+    <div class="featured-product-marquee__background-track">
+      <span>{{ section.settings.marquee_text }}</span>
+      <span>{{ section.settings.marquee_text }}</span>
     </div>
   </div>
-</div>
+
+  <div class="featured-product-marquee__content page-width">
+    <div class="featured-product-marquee__hero">
+      <div class="featured-product-marquee__image-wrap">
+        {%- if featured_product != blank and featured_product.featured_image != blank -%}
+          {{
+            featured_product.featured_image
+            | image_url: width: 1200
+            | image_tag:
+              class: 'featured-product-marquee__image',
+              widths: '360, 540, 720, 960, 1200',
+              sizes: '(min-width: 990px) 48vw, 90vw',
+              loading: 'lazy',
+              alt: featured_product.featured_image.alt
+          }}
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'featured-product-marquee__image placeholder-svg' }}
+        {%- endif -%}
+      </div>
+
+      <div class="featured-product-marquee__details">
+        {%- if featured_product != blank -%}
+          <h2 class="featured-product-marquee__title">
+            <a href="{{ featured_product.url }}">{{ featured_product.title | escape }}</a>
+          </h2>
+          {%- if section.settings.description != blank -%}
+            <div class="featured-product-marquee__description rte">
+              {{ section.settings.description }}
+            </div>
+          {%- elsif featured_product.description != blank -%}
+            <div class="featured-product-marquee__description rte">
+              {{ featured_product.description | strip_html | truncatewords: 28 }}
+            </div>
+          {%- endif -%}
+          <div class="featured-product-marquee__price">
+            {%- if featured_product.compare_at_price > featured_product.price -%}
+              <s>{{ featured_product.compare_at_price | money }}</s>
+            {%- endif -%}
+            <span>{{ featured_product.price | money }}</span>
+          </div>
+          <a class="button featured-product-marquee__button" href="{{ featured_product.url }}">
+            {{ section.settings.button_label | escape }}
+          </a>
+        {%- else -%}
+          <h2 class="featured-product-marquee__title">{{ section.settings.product_title }}</h2>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if product_count > 0 -%}
+      <slider-component class="featured-product-marquee__slider">
+        <button
+          type="button"
+          class="slider-button featured-product-marquee__arrow featured-product-marquee__arrow--prev"
+          name="previous"
+          aria-label="{{ 'general.slider.previous_slide' | t }}"
+        >
+          <span class="svg-wrapper">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+        </button>
+        <ul
+          id="Slider-FeaturedProductMarquee-{{ section.id }}"
+          class="featured-product-marquee__products slider slider--desktop"
+          role="list"
+        >
+          {%- for block in section.blocks -%}
+            {%- assign block_product = block.settings.product -%}
+            <li
+              id="Slide-FeaturedProductMarquee-{{ section.id }}-{{ forloop.index }}"
+              class="featured-product-marquee__product slider__slide"
+              {{ block.shopify_attributes }}
+            >
+              <a href="{{ block_product.url | default: '#' }}" class="featured-product-marquee__product-link">
+                <div class="featured-product-marquee__product-image">
+                  {%- if block_product != blank and block_product.featured_image != blank -%}
+                    {{
+                      block_product.featured_image
+                      | image_url: width: 400
+                      | image_tag:
+                        widths: '160, 240, 320, 400',
+                        sizes: '(min-width: 990px) 160px, 38vw',
+                        loading: 'lazy',
+                        alt: block_product.featured_image.alt
+                    }}
+                  {%- else -%}
+                    {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {%- endif -%}
+                </div>
+                <span class="featured-product-marquee__product-title">
+                  {{ block_product.title | default: 'Select a product' | escape }}
+                </span>
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+        <button
+          type="button"
+          class="slider-button featured-product-marquee__arrow featured-product-marquee__arrow--next"
+          name="next"
+          aria-label="{{ 'general.slider.next_slide' | t }}"
+        >
+          <span class="svg-wrapper">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+        </button>
+      </slider-component>
+    {%- endif -%}
+  </div>
+</section>
 
 {% stylesheet %}
-  .marquee-section {
-    background-color: var(--marquee-background, #C8104F) !important;
-    background-image: none !important;
+  .featured-product-marquee {
+    position: relative;
     overflow: hidden;
-    color: var(--marquee-foreground, rgb(var(--color-foreground)));
+    background: var(--featured-marquee-background);
+    color: var(--featured-marquee-foreground);
   }
 
-  .marquee-section__viewport {
+  .featured-product-marquee__background-text {
+    position: absolute;
+    inset: 0;
     overflow: hidden;
-    padding: var(--marquee-padding) 0;
+    pointer-events: none;
   }
 
-  .marquee-section__track {
+  .featured-product-marquee__background-track {
     display: flex;
     width: max-content;
-    animation: marquee-scroll var(--marquee-speed) linear infinite;
-    will-change: transform;
-  }
-
-  .marquee-section__track--right {
-    animation-name: marquee-scroll-reverse;
-  }
-
-  .marquee-section__track[data-pause-on-hover]:hover {
-    animation-play-state: paused;
-  }
-
-  .marquee-section__group {
-    display: flex;
-    flex-shrink: 0;
-    align-items: center;
-    gap: 3.5rem;
-    padding-right: 3.5rem;
+    animation: featured-product-marquee-scroll var(--featured-marquee-speed) linear infinite;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: clamp(8rem, 16vw, 20rem);
+    font-weight: 700;
+    line-height: 0.85;
     white-space: nowrap;
   }
 
-  .marquee-section__item,
-  .marquee-section__link {
+  .featured-product-marquee__background-track span {
+    padding-right: 2rem;
+  }
+
+  .featured-product-marquee__content {
+    position: relative;
+    z-index: 1;
+    padding-top: 5rem;
+    padding-bottom: 4rem;
+  }
+
+  .featured-product-marquee__hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 4rem;
+    min-height: 42rem;
+  }
+
+  .featured-product-marquee__image-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .featured-product-marquee__image {
+    display: block;
+    width: min(100%, 58rem);
+    height: 40rem;
+    object-fit: contain;
+  }
+
+  .featured-product-marquee__details {
+    max-width: 58rem;
+  }
+
+  .featured-product-marquee__title {
+    margin: 0 0 1.5rem;
+    font-size: clamp(3rem, 4vw, 6rem);
+    line-height: 1.05;
+  }
+
+  .featured-product-marquee__title a {
     color: inherit;
-    font-size: var(--marquee-text-size);
-    font-weight: 600;
-    line-height: 1.2;
     text-decoration: none;
-    text-transform: uppercase;
   }
 
-  .marquee-section__item--emphasis {
-    font-weight: 700;
+  .featured-product-marquee__description {
+    max-width: 56rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.7;
   }
 
-  .marquee-section__separator {
-    font-size: var(--marquee-text-size);
-    line-height: 1;
+  .featured-product-marquee__price {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    color: var(--featured-marquee-accent);
+    font-size: clamp(2rem, 3vw, 3.5rem);
+  }
+
+  .featured-product-marquee__price s {
+    color: rgba(0, 0, 0, 0.45);
+    font-size: 0.65em;
+  }
+
+  .featured-product-marquee__button {
+    border-radius: 3rem;
+    background: #000;
+    color: #fff;
+  }
+
+  .featured-product-marquee__slider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-left: 50%;
+    padding: 0 4rem;
+  }
+
+  .featured-product-marquee__products {
+    display: flex;
+    flex: 1;
+    gap: 2.5rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+
+  .featured-product-marquee__products::-webkit-scrollbar {
+    display: none;
+  }
+
+  .featured-product-marquee__product {
+    flex: 0 0 calc((100% - 5rem) / 3);
+    min-width: 0;
+  }
+
+  .featured-product-marquee__product-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .featured-product-marquee__product-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 15rem;
+    border: 0.1rem solid rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  .featured-product-marquee__product-image img,
+  .featured-product-marquee__product-image .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .featured-product-marquee__product-title {
+    display: block;
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  .featured-product-marquee__arrow {
+    flex: 0 0 4.4rem;
+    width: 4.4rem;
+    height: 4.4rem;
+    border: 0.1rem solid currentColor;
+    border-radius: 50%;
+    background: transparent;
+  }
+
+  .featured-product-marquee__arrow--prev .svg-wrapper {
+    transform: rotate(90deg);
+  }
+
+  .featured-product-marquee__arrow--next .svg-wrapper {
+    transform: rotate(-90deg);
+  }
+
+  @keyframes featured-product-marquee-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media screen and (max-width: 989px) {
+    .featured-product-marquee__hero {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .featured-product-marquee__details {
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .featured-product-marquee__description {
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .featured-product-marquee__price {
+      justify-content: center;
+    }
+
+    .featured-product-marquee__slider {
+      margin-left: 0;
+    }
   }
 
   @media screen and (max-width: 749px) {
-    .marquee-section__item,
-    .marquee-section__link,
-    .marquee-section__separator {
-      font-size: var(--marquee-mobile-text-size);
+    .featured-product-marquee__content {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
     }
-  }
 
-  .marquee-section__link:hover {
-    text-decoration: underline;
-    text-underline-offset: 0.3em;
-  }
+    .featured-product-marquee__image {
+      height: 28rem;
+    }
 
-  @keyframes marquee-scroll {
-    from {
-      transform: translateX(0);
+    .featured-product-marquee__slider {
+      gap: 0.5rem;
+      padding: 0;
     }
-    to {
-      transform: translateX(-50%);
-    }
-  }
 
-  @keyframes marquee-scroll-reverse {
-    from {
-      transform: translateX(-50%);
+    .featured-product-marquee__products {
+      gap: 1rem;
     }
-    to {
-      transform: translateX(0);
+
+    .featured-product-marquee__product {
+      flex-basis: calc((100% - 1rem) / 2);
+    }
+
+    .featured-product-marquee__product-image {
+      height: 13rem;
+    }
+
+    .featured-product-marquee__arrow {
+      flex-basis: 3.6rem;
+      width: 3.6rem;
+      height: 3.6rem;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .marquee-section__track {
+    .featured-product-marquee__background-track {
       animation: none;
-      transform: none;
     }
   }
 {% endstylesheet %}
 
 {% schema %}
 {
-  "name": "Marquee",
+  "name": "Featured product marquee",
   "tag": "section",
   "class": "section",
-  "disabled_on": {
-    "groups": ["header", "footer"]
-  },
   "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Featured product"
+    },
+    {
+      "type": "text",
+      "id": "product_title",
+      "label": "Fallback title",
+      "default": "Choose a featured product"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Choose options"
+    },
+    {
+      "type": "text",
+      "id": "marquee_text",
+      "label": "Moving background text",
+      "default": "Sale off."
+    },
+    {
+      "type": "range",
+      "id": "marquee_speed",
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "unit": "s",
+      "label": "Marquee speed",
+      "default": 30
+    },
     {
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "Color scheme",
-      "default": "scheme-2"
+      "default": "scheme-1"
     },
     {
       "type": "color",
       "id": "background_color",
       "label": "Background color",
-      "default": "#C8104F"
+      "default": "#f2f2f2"
     },
     {
       "type": "color",
       "id": "text_color",
       "label": "Text color",
-      "default": "#FFFFFF"
+      "default": "#111111"
     },
     {
-      "type": "header",
-      "content": "Animation"
-    },
-    {
-      "type": "range",
-      "id": "speed",
-      "min": 5,
-      "max": 30,
-      "step": 1,
-      "unit": "s",
-      "label": "Animation speed",
-      "default": 15
-    },
-    {
-      "type": "select",
-      "id": "direction",
-      "options": [
-        {
-          "value": "left",
-          "label": "Move left"
-        },
-        {
-          "value": "right",
-          "label": "Move right"
-        }
-      ],
-      "default": "left",
-      "label": "Direction"
-    },
-    {
-      "type": "checkbox",
-      "id": "pause_on_hover",
-      "label": "Pause when hovered",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "separator",
-      "label": "Message separator",
-      "default": "•"
-    },
-    {
-      "type": "header",
-      "content": "Typography and spacing"
-    },
-    {
-      "type": "range",
-      "id": "text_size",
-      "min": 12,
-      "max": 60,
-      "step": 1,
-      "unit": "px",
-      "label": "Text size",
-      "default": 24
-    },
-    {
-      "type": "range",
-      "id": "mobile_text_size",
-      "min": 10,
-      "max": 40,
-      "step": 1,
-      "unit": "px",
-      "label": "Mobile text size",
-      "default": 18
-    },
-    {
-      "type": "range",
-      "id": "padding",
-      "min": 8,
-      "max": 60,
-      "step": 1,
-      "unit": "px",
-      "label": "Vertical spacing",
-      "default": 20
-    },
-    {
-      "type": "text",
-      "id": "accessibility_label",
-      "label": "Accessibility label",
-      "default": "Promotional announcements"
+      "type": "color",
+      "id": "accent_color",
+      "label": "Price accent color",
+      "default": "#c8104f"
     }
   ],
   "blocks": [
     {
-      "type": "message",
-      "name": "Message",
+      "type": "product",
+      "name": "Product card",
       "settings": [
         {
-          "type": "text",
-          "id": "text",
-          "label": "Text",
-          "default": "Black Friday"
-        },
-        {
-          "type": "checkbox",
-          "id": "emphasis",
-          "label": "Emphasize text",
-          "default": false
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "Link"
+          "type": "product",
+          "id": "product",
+          "label": "Product"
         }
       ]
     }
   ],
-  "max_blocks": 12,
+  "max_blocks": 8,
   "presets": [
     {
-      "name": "Marquee",
+      "name": "Featured product marquee",
       "blocks": [
-        {
-          "type": "message",
-          "settings": {
-            "text": "Black Friday",
-            "emphasis": true
-          }
-        },
-        {
-          "type": "message",
-          "settings": {
-            "text": "End of season sale"
-          }
-        }
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" }
       ]
     }
   ]
