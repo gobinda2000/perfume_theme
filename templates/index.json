@@ -217,18 +217,25 @@
           "settings": {
             "collection": "frontpage"
           }
+        },
+        "featured_collection_3rcNpQ": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "earing"
+          }
         }
       },
       "block_order": [
         "featured_collection_7r6HW8",
         "featured_collection_7Qra9K",
-        "featured_collection_dfanj7"
+        "featured_collection_dfanj7",
+        "featured_collection_3rcNpQ"
       ],
       "name": "t:sections.collection-list.presets.name",
       "settings": {
         "title": "&nbsp;Shop by Categories&nbsp;",
-        "heading_size": "h1",
         "description": "",
+        "heading_size": "h1",
         "image_ratio": "portrait",
         "columns_desktop": 3,
         "color_scheme": "",
