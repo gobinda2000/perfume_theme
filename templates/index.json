@@ -159,7 +159,7 @@
         "background_color": "#e7105a",
         "text_color": "#f5ebeb",
         "speed": 5,
-        "direction": "left",
+        "direction": "right",
         "pause_on_hover": true,
         "separator": "•",
         "text_size": 24,
