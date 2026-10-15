@@ -1,0 +1,345 @@
+/* ============================================
+   FOOTER REDESIGNED LAYOUT
+   Matches the FLOWA reference footer design:
+   Brand+Contact | Menu | Menu | Menu | Newsletter+Social
+   ============================================ */
+
+/* --- Footer Background --- */
+.footer.color-scheme-1 {
+  background-color: #f9f8f6;
+}
+
+/* --- More vertical padding --- */
+.footer .footer__content-top {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+/* --- Main Grid Layout --- */
+.footer-redesigned-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+@media screen and (min-width: 990px) {
+  .footer-redesigned-grid {
+    grid-template-columns: 1.4fr 1fr 1fr 1fr 1.5fr;
+    gap: 3rem;
+    align-items: start;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .footer-redesigned-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2.5rem;
+  }
+}
+
+/* --- Brand Column (Left) --- */
+.footer-redesigned__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.footer-redesigned__logo {
+  margin-bottom: 2.2rem;
+}
+
+.footer-redesigned__logo .footer-block__image-wrapper {
+  margin-bottom: 0;
+}
+
+.footer-redesigned__brand-details {
+  margin-bottom: 1.5rem;
+}
+
+/* --- Contact Info Under Logo --- */
+.footer-redesigned__contact-info {
+  margin-top: 0.5rem;
+}
+
+.footer-redesigned__contact-info p {
+  margin: 0;
+  line-height: 1.9;
+  font-size: 1.3rem;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+.footer-redesigned__address {
+  margin-bottom: 1.2rem !important;
+  max-width: 24rem;
+  font-size: 1.3rem !important;
+  line-height: 1.6 !important;
+}
+
+.footer-redesigned__phone {
+  margin-bottom: 0.4rem !important;
+}
+
+.footer-redesigned__phone a {
+  color: #c45e2c;
+  font-size: 2rem;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease;
+}
+
+.footer-redesigned__phone a:hover {
+  color: #a34e24;
+}
+
+.footer-redesigned__email a {
+  color: #c45e2c;
+  font-size: 1.2rem;
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+  transition: color 0.2s ease;
+}
+
+.footer-redesigned__email a:hover {
+  color: #a34e24;
+}
+
+/* --- Menu Columns (Middle) --- */
+.footer-redesigned__menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-redesigned__menu .footer-block__heading {
+  font-size: 1.5rem;
+  margin-bottom: 1.8rem;
+  margin-top: 0;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.4rem;
+  text-decoration-thickness: 0.1rem;
+}
+
+.footer-redesigned__menu .footer-block__details-content {
+  margin-bottom: 0;
+}
+
+.footer-redesigned__menu .list-menu__item--link {
+  display: inline-block;
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
+  font-size: 1.3rem;
+  color: rgba(var(--color-foreground), 0.65);
+  transition: color 0.2s ease;
+}
+
+.footer-redesigned__menu .list-menu__item--link:hover {
+  color: rgb(var(--color-foreground));
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+/* --- Newsletter Column (Right) --- */
+.footer-redesigned__newsletter-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.footer-redesigned__newsletter {
+  text-align: left;
+  flex-grow: 0;
+}
+
+.footer-redesigned__newsletter-heading {
+  color: #c45e2c;
+  font-size: 1.4rem !important;
+  font-weight: 500;
+  line-height: 1.6;
+  margin-bottom: 1.2rem !important;
+}
+
+.footer-redesigned__newsletter .newsletter-form__field-wrapper {
+  max-width: 100%;
+}
+
+.footer-redesigned__newsletter .field__input {
+  border-radius: 0;
+  border: 0.1rem solid rgba(var(--color-foreground), 0.2);
+  font-size: 1.2rem;
+  padding: 1.4rem 1.2rem;
+  background-color: #ffffff;
+}
+
+.footer-redesigned__newsletter .field__button {
+  border-radius: 0;
+}
+
+/* --- Social Icons: Dark filled circles --- */
+.footer-redesigned__social {
+  display: flex;
+  margin-top: 0.5rem;
+}
+
+.footer-redesigned__social .footer__list-social.list-social {
+  justify-content: flex-start;
+  gap: 0.8rem;
+}
+
+.footer-redesigned__social .list-social__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-redesigned__social .list-social__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.8rem;
+  height: 3.8rem;
+  border-radius: 50%;
+  background-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+  padding: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.footer-redesigned__social .list-social__link .icon {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.footer-redesigned__social .list-social__link:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+.footer-redesigned__social .list-social__link:hover .icon {
+  transform: none;
+}
+
+/* --- Bottom Bar Redesigned --- */
+.footer-redesigned__bottom {
+  border-top: solid 0.1rem rgba(var(--color-foreground), 0.08);
+  padding-top: 2.5rem;
+  padding-bottom: 2rem;
+  background-color: #f9f8f6;
+}
+
+.footer-redesigned__bottom-inner {
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-redesigned__copyright-payment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 1.2rem;
+}
+
+.footer-redesigned__copyright-payment .footer__copyright {
+  text-align: center;
+  margin-top: 0;
+}
+
+.footer-redesigned__copyright-payment .copyright__content {
+  font-size: 1.2rem;
+  color: rgba(var(--color-foreground), 0.6);
+}
+
+.footer-redesigned__copyright-payment .copyright__content a {
+  color: rgba(var(--color-foreground), 0.6);
+  text-decoration: none;
+}
+
+.footer-redesigned__copyright-payment .copyright__content a:hover {
+  color: rgb(var(--color-foreground));
+}
+
+.footer-redesigned__payment {
+  display: flex;
+  justify-content: center;
+  margin-top: 0 !important;
+}
+
+.footer-redesigned__payment .list-payment {
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+/* --- Override default footer styles that conflict --- */
+.footer .footer-redesigned-grid + .footer-block--newsletter {
+  display: none;
+}
+
+.footer .footer-redesigned-grid .footer-block__details-content {
+  margin-bottom: 0;
+}
+
+/* Remove default footer border since we use background */
+.footer.color-scheme-1 {
+  border-top: none;
+}
+
+/* --- Mobile Adjustments --- */
+@media screen and (max-width: 749px) {
+  .footer-redesigned-grid {
+    gap: 3rem;
+    padding-left: calc(4rem / var(--font-body-scale));
+    padding-right: calc(4rem / var(--font-body-scale));
+  }
+
+  .footer-redesigned__brand {
+    text-align: center;
+    align-items: center;
+  }
+
+  .footer-redesigned__contact-info {
+    text-align: center;
+  }
+
+  .footer-redesigned__address {
+    max-width: 100%;
+  }
+
+  .footer-redesigned__menu {
+    text-align: center;
+    align-items: center;
+  }
+
+  .footer-redesigned__newsletter-col {
+    text-align: center;
+    align-items: center;
+  }
+
+  .footer-redesigned__newsletter {
+    text-align: center;
+    width: 100%;
+  }
+
+  .footer-redesigned__newsletter-heading {
+    text-align: center;
+  }
+
+  .footer-redesigned__social {
+    justify-content: center;
+  }
+
+  .footer-redesigned__social .footer__list-social.list-social {
+    justify-content: center;
+  }
+}
+
+/* Tablet */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .footer-redesigned__brand {
+    grid-column: 1 / -1;
+  }
+
+  .footer-redesigned__newsletter-col {
+    grid-column: 1 / -1;
+  }
+}
