@@ -130,21 +130,6 @@
         "accessibility_info": "Slideshow about our brand"
       }
     },
-    "featured_product_marquee": {
-      "type": "marquee-bar",
-      "settings": {
-        "product": "",
-        "product_title": "Choose a featured product",
-        "description": "",
-        "button_label": "Choose options",
-        "marquee_text": "Sale off.",
-        "marquee_speed": 30,
-        "color_scheme": "scheme-1",
-        "background_color": "#f2f2f2",
-        "text_color": "#111111",
-        "accent_color": "#c8104f"
-      }
-    },
     "featured_collection": {
       "type": "featured-collection",
       "disabled": true,
@@ -222,13 +207,54 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "marquee_bar_q7eNG3": {
+      "type": "marquee-bar",
+      "blocks": {
+        "product_DQwpBc": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_YkgUG4": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_VT7Ta9": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_DQwpBc",
+        "product_YkgUG4",
+        "product_VT7Ta9"
+      ],
+      "name": "Featured product marquee",
+      "settings": {
+        "product": "lomani-private-collection-silver-bloom-edp-copy",
+        "product_title": "Choose a featured product",
+        "description": "",
+        "button_label": "Choose options",
+        "marquee_text": "Sale off.",
+        "marquee_speed": 13,
+        "color_scheme": "scheme-2",
+        "background_color": "#f2f2f2",
+        "text_color": "#111111",
+        "accent_color": "#c8104f"
+      }
     }
   },
   "order": [
     "image_banner",
     "slideshow_gMEz3Q",
-    "featured_product_marquee",
     "featured_collection",
-    "collection_list_L6fdJL"
+    "collection_list_L6fdJL",
+    "marquee_bar_q7eNG3"
   ]
 }
