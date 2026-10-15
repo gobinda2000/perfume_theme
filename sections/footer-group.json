@@ -14,6 +14,14 @@
     "footer": {
       "type": "footer",
       "blocks": {
+        "image_QPindk": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/logo.png",
+            "image_width": 115,
+            "alignment": "center"
+          }
+        },
         "link_list_4KQbtA": {
           "type": "link_list",
           "settings": {
@@ -37,6 +45,7 @@
         }
       },
       "block_order": [
+        "image_QPindk",
         "link_list_4KQbtA",
         "link_list_NNTjGN",
         "link_list_JUdYKW"
