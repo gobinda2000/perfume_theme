@@ -8,81 +8,98 @@
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
 
-  .section-{{ section.id }} .collection-list-title {
+  .section-{{ section.id }}-padding .collection-list-title {
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
 
-  .section-{{ section.id }} .title-wrapper-with-link {
+  .section-{{ section.id }}-padding .title-wrapper-with-link {
     justify-content: center;
   }
 
-  .section-{{ section.id }} .collection-list-intro {
+  .section-{{ section.id }}-padding .collection-list-intro {
     max-width: 62rem;
     margin: 1rem auto 0;
     text-align: center;
     color: rgba(var(--color-foreground), 0.75);
   }
 
-  .section-{{ section.id }} .collection-list__item .card__inner,
-  .section-{{ section.id }} .collection-list__item .card__media {
+  .section-{{ section.id }}-padding .collection-list__item .card__inner,
+  .section-{{ section.id }}-padding .collection-list__item .card__media {
     border-radius: 1rem;
   }
 
-  .section-{{ section.id }} .collection-list__item .card__information {
+  .section-{{ section.id }}-padding .collection-list__item .card__information {
     text-align: center;
   }
 
-  .section-{{ section.id }} .collection-list__item .card__heading {
+  .section-{{ section.id }}-padding .collection-list__item .card__heading {
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
 
   @media screen and (min-width: 990px) {
-    .section-{{ section.id }} slider-component {
+    .section-{{ section.id }}-padding slider-component {
       position: relative;
-      padding: 0 4.5rem;
+      padding: 0;
     }
 
-    .section-{{ section.id }} .collection-list.slider--desktop {
-      flex-wrap: inherit;
-      overflow-x: auto;
+    .section-{{ section.id }}-padding .collection-list.slider--desktop {
+      align-items: center;
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 2%;
+      justify-content: center;
+      overflow: visible;
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      width: 92%;
     }
 
-    .section-{{ section.id }} .collection-list.slider--desktop::-webkit-scrollbar {
+    .section-{{ section.id }}-padding .collection-list.slider--desktop::-webkit-scrollbar {
       display: none;
     }
 
-    .section-{{ section.id }} .collection-list.slider--desktop .collection-list__item {
-      width: calc((100% - 3rem) / 3);
-      max-width: calc((100% - 3rem) / 3);
-      flex: 0 0 calc((100% - 3rem) / 3);
+    .section-{{ section.id }}-padding .collection-list.slider--desktop .collection-list__item {
       align-self: center;
-      transition: transform 0.25s ease;
+      box-sizing: border-box;
+      flex: 0 0 29.5%;
+      width: 29.5%;
+      max-width: 29.5%;
     }
 
-    .section-{{ section.id }} .collection-list.slider--desktop .collection-list__item:nth-child(2) {
-      transform: scale(1.12);
+    .section-{{ section.id }}-padding .collection-list.slider--desktop .collection-list__item:nth-child(2) {
       position: relative;
       z-index: 1;
+      flex-basis: 32.8%;
+      width: 32.8%;
+      max-width: 32.8%;
     }
 
-    .section-{{ section.id }} .collection-list-slider-buttons {
+    .section-{{ section.id }}-padding .collection-list-slider-buttons {
       position: absolute;
-      inset: 50% 0 auto;
+      top: 45%;
+      right: -24px;
+      left: 41px;
       z-index: 2;
+      display: flex;
       justify-content: space-between;
-      margin-top: 0;
+      margin: 0;
       pointer-events: none;
       transform: translateY(-50%);
+      opacity: 0;
+      transition: opacity 0.2s ease;
     }
 
-    .section-{{ section.id }} .collection-list-slider-buttons .slider-button {
+    .section-{{ section.id }}-padding slider-component:hover .collection-list-slider-buttons,
+    .section-{{ section.id }}-padding slider-component:focus-within .collection-list-slider-buttons {
+      opacity: 1;
+    }
+
+    .section-{{ section.id }}-padding .collection-list-slider-buttons .slider-button {
       width: 4.4rem;
       height: 4.4rem;
       border: 0.1rem solid rgba(var(--color-foreground), 0.75);
@@ -91,14 +108,16 @@
       pointer-events: auto;
     }
 
-    .section-{{ section.id }} .collection-list-slider-buttons .slider-counter {
-      display: none;
+    .section-{{ section.id }}-padding .collection-list-slider-buttons .slider-button--next {
+      margin-right: 0.5rem;
     }
 
-    .section-{{ section.id }} .collection-list-slider-buttons .slider-button[disabled] {
-      opacity: 1;
-      color: rgba(var(--color-foreground), 0.75);
-      cursor: pointer;
+    .section-{{ section.id }}-padding .collection-list-slider-buttons .slider-button--prev {
+      margin-left: 0.5rem;
+    }
+
+    .section-{{ section.id }}-padding .collection-list-slider-buttons .slider-counter {
+      display: none;
     }
   }
 
@@ -117,7 +136,7 @@
     assign show_mobile_slider = true
   endif
   assign show_desktop_slider = false
-  if section.settings.swipe_on_desktop and section.blocks.size > 1
+  if section.blocks.size > 1
     assign show_desktop_slider = true
   endif
 -%}
@@ -166,7 +185,7 @@
         {%- for block in section.blocks -%}
           <li
             id="Slide-{{ section.id }}-{{ forloop.index }}"
-            class="collection-list__item grid__item{% if show_mobile_slider %} slider__slide{% endif %}{% if block.settings.collection.featured_image == nil %} collection-list__item--no-media{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            class="collection-list__item grid__item{% if show_mobile_slider or show_desktop_slider %} slider__slide{% endif %}{% if block.settings.collection.featured_image == nil %} collection-list__item--no-media{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
             {{ block.shopify_attributes }}
             {% if settings.animations_reveal_on_scroll %}
               data-cascade
@@ -357,12 +376,6 @@
       "id": "swipe_on_mobile",
       "default": false,
       "label": "t:sections.collection-list.settings.swipe_on_mobile.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "swipe_on_desktop",
-      "default": true,
-      "label": "Enable desktop carousel"
     },
     {
       "type": "header",
