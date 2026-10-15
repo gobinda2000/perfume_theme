@@ -14,6 +14,20 @@
     "footer": {
       "type": "footer",
       "blocks": {
+        "link_list_4KQbtA": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Contact us",
+            "menu": "footer"
+          }
+        },
+        "link_list_NNTjGN": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Customer Service",
+            "menu": "main-menu"
+          }
+        },
         "link_list_JUdYKW": {
           "type": "link_list",
           "settings": {
@@ -23,6 +37,8 @@
         }
       },
       "block_order": [
+        "link_list_4KQbtA",
+        "link_list_NNTjGN",
         "link_list_JUdYKW"
       ],
       "settings": {
