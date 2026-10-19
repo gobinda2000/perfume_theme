@@ -130,6 +130,63 @@
         "accessibility_info": "Slideshow about our brand"
       }
     },
+    "brand_background_showcase": {
+      "type": "brand-background-showcase",
+      "blocks": {
+        "brand_dolce_gabbana": {
+          "type": "brand",
+          "settings": {
+            "tab_label": "Dolce & Gabbana",
+            "heading": "Dolce & Gabbana"
+          }
+        },
+        "brand_chanel": {
+          "type": "brand",
+          "settings": {
+            "tab_label": "Chanel",
+            "heading": "Chanel"
+          }
+        },
+        "brand_versace": {
+          "type": "brand",
+          "settings": {
+            "tab_label": "Versace",
+            "heading": "Versace"
+          }
+        },
+        "brand_gucci": {
+          "type": "brand",
+          "settings": {
+            "tab_label": "Gucci",
+            "heading": "Gucci"
+          }
+        },
+        "brand_tom_ford": {
+          "type": "brand",
+          "settings": {
+            "tab_label": "Tom Ford",
+            "heading": "Tom Ford"
+          }
+        },
+        "brand_louis_vuitton": {
+          "type": "brand",
+          "settings": {
+            "tab_label": "Louis Vuitton",
+            "heading": "Louis Vuitton"
+          }
+        }
+      },
+      "block_order": [
+        "brand_dolce_gabbana",
+        "brand_chanel",
+        "brand_versace",
+        "brand_gucci",
+        "brand_tom_ford",
+        "brand_louis_vuitton"
+      ],
+      "name": "Brand background showcase",
+      "settings": {}
+    },
     "featured_collection": {
       "type": "featured-collection",
       "disabled": true,
@@ -271,7 +328,7 @@
         "show_secondary_image": true,
         "show_vendor": false,
         "show_rating": false,
-        "quick_add": "standard",
+        "quick_add": "none",
         "columns_mobile": "2",
         "swipe_on_mobile": false,
         "padding_top": 36,
@@ -282,6 +339,7 @@
   "order": [
     "image_banner",
     "slideshow_gMEz3Q",
+    "brand_background_showcase",
     "featured_collection",
     "collection_list_L6fdJL",
     "marquee_bar_q7eNG3",

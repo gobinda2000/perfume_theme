@@ -1,0 +1,490 @@
+{%- assign section_height = section.settings.section_height -%}
+
+{%- style -%}
+  #BrandShowcase-{{ section.id }} {
+    --brand-showcase-height: {{ section_height }}px;
+    --brand-showcase-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --brand-showcase-card-width: {{ section.settings.card_width }}px;
+    color: {{ section.settings.text_color }};
+    background: {{ section.settings.fallback_color }};
+  }
+
+  #BrandShowcase-{{ section.id }} .brand-showcase__stage {
+    position: relative;
+    min-height: var(--brand-showcase-height);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  #BrandShowcase-{{ section.id }} .brand-showcase__backgrounds,
+  #BrandShowcase-{{ section.id }} .brand-showcase__background,
+  #BrandShowcase-{{ section.id }} .brand-showcase__background::after {
+    position: absolute;
+    inset: 0;
+  }
+
+  #BrandShowcase-{{ section.id }} .brand-showcase__backgrounds {
+    z-index: -2;
+    background: {{ section.settings.fallback_color }};
+  }
+
+  #BrandShowcase-{{ section.id }} .brand-showcase__background {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 600ms ease, visibility 600ms ease;
+  }
+
+  #BrandShowcase-{{ section.id }} .brand-showcase__background.is-active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  #BrandShowcase-{{ section.id }} .brand-showcase__background::after {
+    z-index: 1;
+    content: '';
+    background: {{ section.settings.overlay_color }};
+    opacity: var(--brand-showcase-overlay);
+  }
+
+  #BrandShowcase-{{ section.id }} .brand-showcase__background img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #BrandShowcase-{{ section.id }} .brand-showcase__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    min-height: var(--brand-showcase-height);
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 7rem 7.7% 3rem;
+  }
+
+  #BrandShowcase-{{ section.id }} .brand-showcase__copy {
+    width: min(100%, 58rem);
+  }
+
+  #BrandShowcase-{{ section.id }} .brand-showcase__panel {
+    display: none;
+  }
+
+  #BrandShowcase-{{ section.id }} .brand-showcase__panel.is-active {
+    display: block;
+    animation: brand-showcase-fade-in 500ms ease both;
+  }
+
+  #BrandShowcase-{{ section.id }} .brand-showcase__heading {
+    margin: 0 0 1.2rem;
+    color: inherit;
+    font-size: clamp(3.6rem, 5vw, 6rem);
+    font-weight: 400;
+    line-height: 1.08;
+  }
+
+  #BrandShowcase-{{ section.id }} .brand-showcase__description {
+    max-width: 58rem;
+    margin: 0;
+    color: inherit;
+    font-size: 1.6rem;
+    line-height: 1.8;
+  }
+
+  #BrandShowcase-{{ section.id }} .brand-showcase__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 15rem;
+    min-height: 5rem;
+    margin-top: 3.2rem;
+    padding: 0.8rem 2.4rem;
+    border: 0.1rem solid currentColor;
+    border-radius: 3rem;
+    color: inherit;
+    background: transparent;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 200ms ease, color 200ms ease;
+  }
+
+  #BrandShowcase-{{ section.id }} .brand-showcase__button:hover,
+  #BrandShowcase-{{ section.id }} .brand-showcase__button:focus-visible {
+    color: {{ section.settings.button_hover_text }};
+    background: {{ section.settings.button_hover_color }};
+  }
+
+  #BrandShowcase-{{ section.id }} .brand-showcase__navigation {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 2.4rem;
+    align-items: stretch;
+  }
+
+  #BrandShowcase-{{ section.id }} .brand-showcase__tab {
+    display: flex;
+    min-height: var(--brand-showcase-card-width);
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.2rem;
+    border: 0.1rem solid rgba(255, 255, 255, 0.8);
+    border-radius: 0.8rem;
+    color: inherit;
+    background: transparent;
+    cursor: pointer;
+    font: inherit;
+    font-size: 2rem;
+    line-height: 1.25;
+    text-align: center;
+    transition: background 250ms ease, color 250ms ease, border-color 250ms ease;
+  }
+
+  #BrandShowcase-{{ section.id }} .brand-showcase__tab:hover,
+  #BrandShowcase-{{ section.id }} .brand-showcase__tab:focus-visible {
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  #BrandShowcase-{{ section.id }} .brand-showcase__tab[aria-selected='true'] {
+    border-color: #fff;
+    color: {{ section.settings.active_tab_text }};
+    background: {{ section.settings.active_tab_color }};
+  }
+
+  @keyframes brand-showcase-fade-in {
+    from { opacity: 0; transform: translateY(1rem); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media screen and (max-width: 749px) {
+    #BrandShowcase-{{ section.id }} {
+      --brand-showcase-height: {{ section.settings.mobile_height }}px;
+    }
+
+    #BrandShowcase-{{ section.id }} .brand-showcase__content {
+      min-height: var(--brand-showcase-height);
+      padding: 5rem 2rem 2rem;
+    }
+
+    #BrandShowcase-{{ section.id }} .brand-showcase__description {
+      font-size: 1.4rem;
+      line-height: 1.65;
+    }
+
+    #BrandShowcase-{{ section.id }} .brand-showcase__navigation {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    #BrandShowcase-{{ section.id }} .brand-showcase__tab {
+      min-height: 8.5rem;
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #BrandShowcase-{{ section.id }} .brand-showcase__background,
+    #BrandShowcase-{{ section.id }} .brand-showcase__button,
+    #BrandShowcase-{{ section.id }} .brand-showcase__tab {
+      transition: none;
+    }
+
+    #BrandShowcase-{{ section.id }} .brand-showcase__panel.is-active {
+      animation: none;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  id="BrandShowcase-{{ section.id }}"
+  class="brand-showcase"
+  data-brand-showcase
+  aria-label="{{ section.settings.accessibility_label | escape }}"
+>
+  <div class="brand-showcase__stage">
+    <div class="brand-showcase__backgrounds" aria-hidden="true">
+      {%- for block in section.blocks -%}
+        <div
+          class="brand-showcase__background{% if forloop.first %} is-active{% endif %}"
+          data-brand-background="{{ block.id }}"
+        >
+          {%- if block.settings.background_image != blank -%}
+            {{
+              block.settings.background_image
+              | image_url: width: 2400
+              | image_tag:
+                loading: 'lazy',
+                widths: '750, 1100, 1500, 2000, 2400',
+                sizes: '100vw',
+                alt: ''
+            }}
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div class="brand-showcase__content">
+      <div class="brand-showcase__copy">
+        {%- for block in section.blocks -%}
+          <div
+            id="BrandPanel-{{ block.id }}"
+            class="brand-showcase__panel{% if forloop.first %} is-active{% endif %}"
+            data-brand-panel="{{ block.id }}"
+            role="tabpanel"
+            aria-labelledby="BrandTab-{{ block.id }}"
+            {% unless forloop.first %}hidden{% endunless %}
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.heading != blank -%}
+              <h2 class="brand-showcase__heading">{{ block.settings.heading | escape }}</h2>
+            {%- endif -%}
+            {%- if block.settings.description != blank -%}
+              <p class="brand-showcase__description">{{ block.settings.description | escape }}</p>
+            {%- endif -%}
+            {%- if block.settings.button_label != blank -%}
+              <a
+                class="brand-showcase__button"
+                {% if block.settings.button_link != blank %}href="{{ block.settings.button_link }}"{% else %}role="link" aria-disabled="true"{% endif %}
+              >
+                {{ block.settings.button_label | escape }}
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="brand-showcase__navigation" role="tablist" aria-label="{{ section.settings.navigation_label | escape }}">
+        {%- for block in section.blocks -%}
+          <button
+            id="BrandTab-{{ block.id }}"
+            class="brand-showcase__tab"
+            type="button"
+            role="tab"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            aria-controls="BrandPanel-{{ block.id }}"
+            tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
+            data-brand-tab="{{ block.id }}"
+          >
+            {{ block.settings.tab_label | default: block.settings.heading | escape | newline_to_br }}
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const root = document.querySelector('#BrandShowcase-{{ section.id }}');
+    if (!root || root.dataset.initialized === 'true') return;
+    root.dataset.initialized = 'true';
+
+    const tabs = [...root.querySelectorAll('[data-brand-tab]')];
+    const backgrounds = [...root.querySelectorAll('[data-brand-background]')];
+    const panels = [...root.querySelectorAll('[data-brand-panel]')];
+
+    const activateBrand = (brandId, moveFocus) => {
+      tabs.forEach((tab) => {
+        const isActive = tab.dataset.brandTab === brandId;
+        tab.setAttribute('aria-selected', String(isActive));
+        tab.tabIndex = isActive ? 0 : -1;
+      });
+
+      backgrounds.forEach((background) => {
+        background.classList.toggle('is-active', background.dataset.brandBackground === brandId);
+      });
+
+      panels.forEach((panel) => {
+        const isActive = panel.dataset.brandPanel === brandId;
+        panel.classList.toggle('is-active', isActive);
+        panel.hidden = !isActive;
+      });
+
+      if (moveFocus) {
+        const activeTab = tabs.find((tab) => tab.dataset.brandTab === brandId);
+        if (activeTab) activeTab.focus();
+      }
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => activateBrand(tab.dataset.brandTab, false));
+      tab.addEventListener('keydown', (event) => {
+        if (!['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        let nextIndex = index;
+        if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (index + 1) % tabs.length;
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (index - 1 + tabs.length) % tabs.length;
+        if (event.key === 'Home') nextIndex = 0;
+        if (event.key === 'End') nextIndex = tabs.length - 1;
+        activateBrand(tabs[nextIndex].dataset.brandTab, true);
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Brand background showcase",
+  "tag": "section",
+  "class": "section-brand-background-showcase",
+  "settings": [
+    {
+      "type": "text",
+      "id": "accessibility_label",
+      "label": "Section accessibility label",
+      "default": "Shop by fragrance brand"
+    },
+    {
+      "type": "text",
+      "id": "navigation_label",
+      "label": "Brand navigation label",
+      "default": "Choose a fragrance brand"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "label": "Desktop section height",
+      "min": 500,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 760
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "label": "Mobile section height",
+      "min": 500,
+      "max": 900,
+      "step": 10,
+      "unit": "px",
+      "default": 720
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Background overlay opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "default": 35
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "fallback_color",
+      "label": "Fallback background color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text and inactive tab color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "active_tab_color",
+      "label": "Active tab background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "active_tab_text",
+      "label": "Active tab text color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text",
+      "label": "Button hover text color",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "card_width",
+      "label": "Desktop brand card height",
+      "min": 100,
+      "max": 220,
+      "step": 5,
+      "unit": "px",
+      "default": 150
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_label",
+          "label": "Tab label",
+          "default": "Brand name"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Brand name"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Discover an unforgettable fragrance collection made for every moment."
+        },
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Background image"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand background showcase",
+      "blocks": [
+        { "type": "brand", "settings": { "tab_label": "Dolce & Gabbana", "heading": "Dolce & Gabbana" } },
+        { "type": "brand", "settings": { "tab_label": "Chanel", "heading": "Chanel" } },
+        { "type": "brand", "settings": { "tab_label": "Versace", "heading": "Versace" } },
+        { "type": "brand", "settings": { "tab_label": "Gucci", "heading": "Gucci" } },
+        { "type": "brand", "settings": { "tab_label": "Tom Ford", "heading": "Tom Ford" } },
+        { "type": "brand", "settings": { "tab_label": "Louis Vuitton", "heading": "Louis Vuitton" } }
+      ]
+    }
+  ],
+  "max_blocks": 6
+}
+{% endschema %}

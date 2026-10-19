@@ -15,9 +15,7 @@
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 {%- endunless -%}
 
-{%- if section.settings.quick_add == 'standard' -%}
-  <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
-{%- endif -%}
+<script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
 
 {%- if section.settings.quick_add == 'bulk' -%}
   <script src="{{ 'quick-add-bulk.js' | asset_url }}" defer="defer"></script>
@@ -103,6 +101,8 @@
   }
 
   #collection-{{ section.id }} .reference-product-action {
+    position: relative;
+    z-index: 4;
     display: grid;
     width: 4.4rem;
     height: 4.4rem;
@@ -123,9 +123,10 @@
   #collection-{{ section.id }} .reference-product-action svg {
     width: 2rem;
     height: 2rem;
+    pointer-events: none;
   }
 
-  #collection-{{ section.id }} .quick-view-modal {
+  .quick-view-modal {
     position: fixed;
     z-index: 100;
     inset: 0;
@@ -135,11 +136,11 @@
     background: rgb(0 0 0 / 70%);
   }
 
-  #collection-{{ section.id }} .quick-view-modal.is-open {
+  .quick-view-modal.is-open {
     display: grid;
   }
 
-  #collection-{{ section.id }} .quick-view-modal__content {
+  .quick-view-modal__content {
     position: relative;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -150,7 +151,7 @@
     background: #fff;
   }
 
-  #collection-{{ section.id }} .quick-view-modal__image {
+  .quick-view-modal__image {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -158,39 +159,39 @@
     background: #f7f7f7;
   }
 
-  #collection-{{ section.id }} .quick-view-modal__image img {
+  .quick-view-modal__image img {
     width: 100%;
     height: 100%;
     max-height: 52rem;
     object-fit: contain;
   }
 
-  #collection-{{ section.id }} .quick-view-modal__details {
+  .quick-view-modal__details {
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 4rem;
   }
 
-  #collection-{{ section.id }} .quick-view-modal__vendor {
+  .quick-view-modal__vendor {
     margin: 0 0 1rem;
     font-size: 1.2rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
   }
 
-  #collection-{{ section.id }} .quick-view-modal__price {
+  .quick-view-modal__price {
     margin-bottom: 2.4rem;
   }
 
-  #collection-{{ section.id }} .quick-view-modal__variant-label,
-  #collection-{{ section.id }} .quick-view-modal__quantity-label {
+  .quick-view-modal__variant-label,
+  .quick-view-modal__quantity-label {
     display: block;
     margin: 1.6rem 0 0.8rem;
   }
 
-  #collection-{{ section.id }} .quick-view-modal__variant-select,
-  #collection-{{ section.id }} .quick-view-modal__quantity {
+  .quick-view-modal__variant-select,
+  .quick-view-modal__quantity {
     width: 100%;
     min-height: 4.4rem;
     padding: 0 1.2rem;
@@ -198,17 +199,17 @@
     background: #fff;
   }
 
-  #collection-{{ section.id }} .quick-view-modal__form .button {
+  .quick-view-modal__form .button {
     margin-top: 2rem;
   }
 
-  #collection-{{ section.id }} .quick-view-modal__buy-now {
+  .quick-view-modal__buy-now {
     margin-top: 1rem;
     background: #111;
     color: #fff;
   }
 
-  #collection-{{ section.id }} .quick-view-modal__close {
+  .quick-view-modal__close {
     position: absolute;
     top: 1rem;
     right: 1rem;
@@ -223,34 +224,34 @@
     cursor: pointer;
   }
 
-  #collection-{{ section.id }} .quick-view-modal__close svg {
+  .quick-view-modal__close svg {
     width: 1.8rem;
     height: 1.8rem;
   }
 
-  #collection-{{ section.id }} .quick-view-modal__title {
+  .quick-view-modal__title {
     margin: 0 0 2rem;
   }
 
-  #collection-{{ section.id }} .quick-view-modal__form {
+  .quick-view-modal__form {
     margin-top: 2.4rem;
   }
 
-  #collection-{{ section.id }} .quick-view-modal__form .button {
+  .quick-view-modal__form .button {
     width: 100%;
   }
 
   @media screen and (max-width: 749px) {
-    #collection-{{ section.id }} .quick-view-modal__content {
+    .quick-view-modal__content {
       grid-template-columns: 1fr;
       padding: 1rem;
     }
 
-    #collection-{{ section.id }} .quick-view-modal__image {
+    .quick-view-modal__image {
       min-height: 28rem;
     }
 
-    #collection-{{ section.id }} .quick-view-modal__details {
+    .quick-view-modal__details {
       padding: 2.4rem 1.6rem;
     }
   }
@@ -453,19 +454,29 @@
       document.body.classList.remove('overflow-hidden');
     };
 
+    /* Intercept clicks on [data-quick-view-target] buttons in the capture phase
+       so they fire BEFORE the card-link overlay navigates. */
     section.addEventListener('click', (event) => {
       const opener = event.target.closest('[data-quick-view-target]');
       if (opener) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
         const template = document.getElementById(opener.dataset.quickViewTarget);
         if (!template) return;
         const modal = template.content.firstElementChild.cloneNode(true);
-        section.appendChild(modal);
-        modal.classList.add('is-open');
-        document.body.classList.add('overflow-hidden');
-        modal.querySelector('.quick-view-modal__close')?.focus();
+        document.body.appendChild(modal);
+        requestAnimationFrame(() => {
+          modal.classList.add('is-open');
+          document.body.classList.add('overflow-hidden');
+          modal.querySelector('.quick-view-modal__close')?.focus();
+        });
         return;
       }
+    }, true);
 
+    /* Close modal on backdrop / close-button click */
+    document.addEventListener('click', (event) => {
       const modal = event.target.closest('.quick-view-modal');
       if (!modal) return;
       if (
@@ -474,7 +485,7 @@
       ) {
         closeModal(modal);
       }
-    });
+    }, true);
 
     document.addEventListener('keydown', (event) => {
       if (event.key !== 'Escape') return;
