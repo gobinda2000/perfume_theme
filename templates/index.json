@@ -384,6 +384,76 @@
         "padding_bottom": 36
       }
     },
+    "featured_blog_editorial": {
+      "type": "featured-blog",
+      "name": "Featured blog editorial",
+      "settings": {
+        "blog": "news",
+        "post_limit": 3,
+        "heading": "Latest news",
+        "subheading": "<p>Discover the latest stories, inspiration, and fragrance news.</p>",
+        "heading_size": "h1",
+        "button_label": "Read more",
+        "show_image": true,
+        "show_date": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "service_benefits": {
+      "type": "service-benefits",
+      "name": "Service benefits",
+      "blocks": {
+        "free_shipping": {
+          "type": "benefit",
+          "settings": {
+            "image": "",
+            "icon": "icon-box.svg",
+            "title": "Free Shipping",
+            "description": "Free shipping on over $49"
+          }
+        },
+        "money_guarantee": {
+          "type": "benefit",
+          "settings": {
+            "image": "",
+            "icon": "icon-lock.svg",
+            "title": "Money Guarantee",
+            "description": "Within 30 days for an exchange"
+          }
+        },
+        "online_support": {
+          "type": "benefit",
+          "settings": {
+            "image": "",
+            "icon": "icon-chat-bubble.svg",
+            "title": "Online Support",
+            "description": "24 hours a day, 7 days a week"
+          }
+        },
+        "flexible_payment": {
+          "type": "benefit",
+          "settings": {
+            "image": "",
+            "icon": "icon-discount.svg",
+            "title": "Flexible Payment",
+            "description": "Pay with Multiple Credit Cards"
+          }
+        }
+      },
+      "block_order": [
+        "free_shipping",
+        "money_guarantee",
+        "online_support",
+        "flexible_payment"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "padding_top": 24,
+        "padding_bottom": 24
+      }
+    },
     "customer_testimonials": {
       "type": "customer-testimonials",
       "blocks": {
@@ -409,32 +479,7 @@
         "testimonial_sarah_williams"
       ],
       "name": "Customer testimonials",
-      "settings": {
-        "accessibility_label": "Customer testimonials",
-        "section_height": 620,
-        "mobile_height": 520,
-        "avatar_size": 90,
-        "background_color": "#ffffff",
-        "text_color": "#111111",
-        "accent_color": "#c8104f"
-      }
-    },
-    "featured_blog_editorial": {
-      "type": "featured-blog",
-      "name": "Featured blog editorial",
-      "settings": {
-        "blog": "news",
-        "post_limit": 3,
-        "heading": "Latest news",
-        "subheading": "<p>Discover the latest stories, inspiration, and fragrance news.</p>",
-        "heading_size": "h1",
-        "button_label": "Read more",
-        "show_image": true,
-        "show_date": true,
-        "color_scheme": "scheme-1",
-        "padding_top": 60,
-        "padding_bottom": 60
-      }
+      "settings": {}
     }
   },
   "order": [
@@ -446,7 +491,8 @@
     "featured_collection_4HQwtp",
     "brand_background_showcase",
     "featured_collection_NKzjtm",
-    "customer_testimonials",
-    "featured_blog_editorial"
+    "featured_blog_editorial",
+    "service_benefits",
+    "customer_testimonials"
   ]
 }
