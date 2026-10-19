@@ -409,7 +409,33 @@
         "testimonial_sarah_williams"
       ],
       "name": "Customer testimonials",
-      "settings": {}
+      "settings": {
+        "accessibility_label": "Customer testimonials",
+        "section_height": 620,
+        "mobile_height": 520,
+        "avatar_size": 90,
+        "background_color": "#ffffff",
+        "text_color": "#111111",
+        "accent_color": "#c8104f"
+      }
+    },
+    "featured_blog_FRG6hi": {
+      "type": "featured-blog",
+      "name": "t:sections.featured-blog.presets.name",
+      "settings": {
+        "blog": "news",
+        "post_limit": 3,
+        "heading": "Blog posts",
+        "heading_size": "h1",
+        "columns_desktop": 3,
+        "show_view_all": false,
+        "show_image": true,
+        "show_date": true,
+        "show_author": true,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -421,6 +447,7 @@
     "featured_collection_4HQwtp",
     "brand_background_showcase",
     "featured_collection_NKzjtm",
-    "customer_testimonials"
+    "customer_testimonials",
+    "featured_blog_FRG6hi"
   ]
 }
