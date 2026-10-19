@@ -130,6 +130,22 @@
         "accessibility_info": "Slideshow about our brand"
       }
     },
+    "marquee_bar_q7eNG3": {
+      "type": "marquee-bar",
+      "name": "Scrolling marquee",
+      "settings": {
+        "accessibility_label": "Promotional announcement",
+        "primary_text": "END OF SEASON SALE",
+        "accent_text": "BLACK FRIDAY",
+        "marquee_speed": 22,
+        "image_height": 70,
+        "mobile_image_height": 55,
+        "strip_height": 125,
+        "background_color": "#c8104f",
+        "text_color": "#ffffff",
+        "accent_text_color": "#ffffff"
+      }
+    },
     "product_showcase_marquee": {
       "type": "product-showcase-marquee",
       "blocks": {
@@ -176,42 +192,60 @@
           "type": "brand",
           "settings": {
             "tab_label": "Dolce & Gabbana",
-            "heading": "Dolce & Gabbana"
+            "heading": "Dolce & Gabbana",
+            "description": "Discover an unforgettable fragrance collection made for every moment.",
+            "button_label": "Shop now",
+            "button_link": ""
           }
         },
         "brand_chanel": {
           "type": "brand",
           "settings": {
             "tab_label": "Chanel",
-            "heading": "Chanel"
+            "heading": "Chanel",
+            "description": "Discover an unforgettable fragrance collection made for every moment.",
+            "button_label": "Shop now",
+            "button_link": ""
           }
         },
         "brand_versace": {
           "type": "brand",
           "settings": {
             "tab_label": "Versace",
-            "heading": "Versace"
+            "heading": "Versace",
+            "description": "Discover an unforgettable fragrance collection made for every moment.",
+            "button_label": "Shop now",
+            "button_link": ""
           }
         },
         "brand_gucci": {
           "type": "brand",
           "settings": {
             "tab_label": "Gucci",
-            "heading": "Gucci"
+            "heading": "Gucci",
+            "description": "Discover an unforgettable fragrance collection made for every moment.",
+            "button_label": "Shop now",
+            "button_link": ""
           }
         },
         "brand_tom_ford": {
           "type": "brand",
           "settings": {
             "tab_label": "Tom Ford",
-            "heading": "Tom Ford"
+            "heading": "Tom Ford",
+            "description": "Discover an unforgettable fragrance collection made for every moment.",
+            "button_label": "Shop now",
+            "button_link": ""
           }
         },
         "brand_louis_vuitton": {
           "type": "brand",
           "settings": {
             "tab_label": "Louis Vuitton",
-            "heading": "Louis Vuitton"
+            "heading": "Louis Vuitton",
+            "description": "Discover an unforgettable fragrance collection made for every moment.",
+            "button_label": "Shop now",
+            "button_link": ""
           }
         }
       },
@@ -224,7 +258,21 @@
         "brand_louis_vuitton"
       ],
       "name": "Brand background showcase",
-      "settings": {}
+      "settings": {
+        "accessibility_label": "Shop by fragrance brand",
+        "navigation_label": "Choose a fragrance brand",
+        "section_height": 760,
+        "mobile_height": 720,
+        "overlay_opacity": 35,
+        "overlay_color": "#000000",
+        "fallback_color": "#111111",
+        "text_color": "#ffffff",
+        "active_tab_color": "#ffffff",
+        "active_tab_text": "#111111",
+        "button_hover_color": "#ffffff",
+        "button_hover_text": "#111111",
+        "card_width": 150
+      }
     },
     "featured_collection": {
       "type": "featured-collection",
@@ -304,22 +352,6 @@
         "padding_bottom": 36
       }
     },
-    "marquee_bar_q7eNG3": {
-      "type": "marquee-bar",
-      "name": "Scrolling marquee",
-      "settings": {
-        "background_image": "",
-        "primary_text": "END OF SEASON SALE",
-        "accent_text": "BLACK FRIDAY",
-        "marquee_speed": 22,
-        "image_height": 70,
-        "mobile_image_height": 55,
-        "strip_height": 125,
-        "background_color": "#c8104f",
-        "text_color": "#ffffff",
-        "accent_text_color": "#ffffff"
-      }
-    },
     "featured_collection_4HQwtp": {
       "type": "featured-collection",
       "name": "t:sections.featured-collection.presets.name",
@@ -353,11 +385,11 @@
   "order": [
     "image_banner",
     "slideshow_gMEz3Q",
-    "product_showcase_marquee",
     "marquee_bar_q7eNG3",
-    "brand_background_showcase",
-    "featured_collection",
     "collection_list_L6fdJL",
-    "featured_collection_4HQwtp"
+    "product_showcase_marquee",
+    "featured_collection",
+    "featured_collection_4HQwtp",
+    "brand_background_showcase"
   ]
 }
