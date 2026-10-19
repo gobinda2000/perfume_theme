@@ -137,42 +137,60 @@
           "type": "brand",
           "settings": {
             "tab_label": "Dolce & Gabbana",
-            "heading": "Dolce & Gabbana"
+            "heading": "Dolce & Gabbana",
+            "description": "Discover an unforgettable fragrance collection made for every moment.",
+            "button_label": "Shop now",
+            "button_link": ""
           }
         },
         "brand_chanel": {
           "type": "brand",
           "settings": {
             "tab_label": "Chanel",
-            "heading": "Chanel"
+            "heading": "Chanel",
+            "description": "Discover an unforgettable fragrance collection made for every moment.",
+            "button_label": "Shop now",
+            "button_link": ""
           }
         },
         "brand_versace": {
           "type": "brand",
           "settings": {
             "tab_label": "Versace",
-            "heading": "Versace"
+            "heading": "Versace",
+            "description": "Discover an unforgettable fragrance collection made for every moment.",
+            "button_label": "Shop now",
+            "button_link": ""
           }
         },
         "brand_gucci": {
           "type": "brand",
           "settings": {
             "tab_label": "Gucci",
-            "heading": "Gucci"
+            "heading": "Gucci",
+            "description": "Discover an unforgettable fragrance collection made for every moment.",
+            "button_label": "Shop now",
+            "button_link": ""
           }
         },
         "brand_tom_ford": {
           "type": "brand",
           "settings": {
             "tab_label": "Tom Ford",
-            "heading": "Tom Ford"
+            "heading": "Tom Ford",
+            "description": "Discover an unforgettable fragrance collection made for every moment.",
+            "button_label": "Shop now",
+            "button_link": ""
           }
         },
         "brand_louis_vuitton": {
           "type": "brand",
           "settings": {
             "tab_label": "Louis Vuitton",
-            "heading": "Louis Vuitton"
+            "heading": "Louis Vuitton",
+            "description": "Discover an unforgettable fragrance collection made for every moment.",
+            "button_label": "Shop now",
+            "button_link": ""
           }
         }
       },
@@ -184,8 +202,23 @@
         "brand_tom_ford",
         "brand_louis_vuitton"
       ],
+      "disabled": true,
       "name": "Brand background showcase",
-      "settings": {}
+      "settings": {
+        "accessibility_label": "Shop by fragrance brand",
+        "navigation_label": "Choose a fragrance brand",
+        "section_height": 760,
+        "mobile_height": 720,
+        "overlay_opacity": 35,
+        "overlay_color": "#000000",
+        "fallback_color": "#111111",
+        "text_color": "#ffffff",
+        "active_tab_color": "#ffffff",
+        "active_tab_text": "#111111",
+        "button_hover_color": "#ffffff",
+        "button_hover_text": "#111111",
+        "card_width": 150
+      }
     },
     "featured_collection": {
       "type": "featured-collection",
@@ -334,6 +367,95 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "brand_background_showcase_PRiEfL": {
+      "type": "brand-background-showcase",
+      "blocks": {
+        "brand_RH3awT": {
+          "type": "brand",
+          "settings": {
+            "tab_label": "Dolce & Gabbana",
+            "heading": "Dolce & Gabbana",
+            "description": "Discover an unforgettable fragrance collection made for every moment.",
+            "button_label": "Shop now",
+            "button_link": ""
+          }
+        },
+        "brand_CrgX9y": {
+          "type": "brand",
+          "settings": {
+            "tab_label": "Chanel",
+            "heading": "Chanel",
+            "description": "Discover an unforgettable fragrance collection made for every moment.",
+            "button_label": "Shop now",
+            "button_link": ""
+          }
+        },
+        "brand_x7jjqP": {
+          "type": "brand",
+          "settings": {
+            "tab_label": "Versace",
+            "heading": "Versace",
+            "description": "Discover an unforgettable fragrance collection made for every moment.",
+            "button_label": "Shop now",
+            "button_link": ""
+          }
+        },
+        "brand_pw4dzL": {
+          "type": "brand",
+          "settings": {
+            "tab_label": "Gucci",
+            "heading": "Gucci",
+            "description": "Discover an unforgettable fragrance collection made for every moment.",
+            "button_label": "Shop now",
+            "button_link": ""
+          }
+        },
+        "brand_Y6bAzi": {
+          "type": "brand",
+          "settings": {
+            "tab_label": "Tom Ford",
+            "heading": "Tom Ford",
+            "description": "Discover an unforgettable fragrance collection made for every moment.",
+            "button_label": "Shop now",
+            "button_link": ""
+          }
+        },
+        "brand_JzAxge": {
+          "type": "brand",
+          "settings": {
+            "tab_label": "Louis Vuitton",
+            "heading": "Louis Vuitton",
+            "description": "Discover an unforgettable fragrance collection made for every moment.",
+            "button_label": "Shop now",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "brand_RH3awT",
+        "brand_CrgX9y",
+        "brand_x7jjqP",
+        "brand_pw4dzL",
+        "brand_Y6bAzi",
+        "brand_JzAxge"
+      ],
+      "name": "Brand background showcase",
+      "settings": {
+        "accessibility_label": "Shop by fragrance brand",
+        "navigation_label": "Choose a fragrance brand",
+        "section_height": 760,
+        "mobile_height": 720,
+        "overlay_opacity": 35,
+        "overlay_color": "#000000",
+        "fallback_color": "#111111",
+        "text_color": "#ffffff",
+        "active_tab_color": "#ffffff",
+        "active_tab_text": "#111111",
+        "button_hover_color": "#ffffff",
+        "button_hover_text": "#111111",
+        "card_width": 150
+      }
     }
   },
   "order": [
@@ -343,6 +465,7 @@
     "featured_collection",
     "collection_list_L6fdJL",
     "marquee_bar_q7eNG3",
-    "featured_collection_4HQwtp"
+    "featured_collection_4HQwtp",
+    "brand_background_showcase_PRiEfL"
   ]
 }
