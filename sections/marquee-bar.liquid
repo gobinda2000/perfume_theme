@@ -13,16 +13,11 @@
     color: var(--marquee-text);
   }
 
-  #MarqueeBar-{{ section.id }} .marquee-bar__image,
-  #MarqueeBar-{{ section.id }} .marquee-bar__image-placeholder {
+  #MarqueeBar-{{ section.id }} .marquee-bar__image {
     display: block;
     width: 100%;
     height: {{ section.settings.image_height }}px;
     object-fit: cover;
-  }
-
-  #MarqueeBar-{{ section.id }} .marquee-bar__image-placeholder {
-    background: {{ section.settings.image_fallback_color }};
   }
 
   #MarqueeBar-{{ section.id }} .marquee-bar__strip {
@@ -67,8 +62,7 @@
   }
 
   @media screen and (max-width: 749px) {
-    #MarqueeBar-{{ section.id }} .marquee-bar__image,
-    #MarqueeBar-{{ section.id }} .marquee-bar__image-placeholder {
+    #MarqueeBar-{{ section.id }} .marquee-bar__image {
       height: {{ section.settings.mobile_image_height }}px;
     }
 
@@ -98,8 +92,6 @@
         sizes: '100vw',
         alt: ''
     }}
-  {%- else -%}
-    <div class="marquee-bar__image-placeholder" aria-hidden="true"></div>
   {%- endif -%}
 
   <div class="marquee-bar__strip">
@@ -191,12 +183,6 @@
       "id": "background_color",
       "label": "Strip background color",
       "default": "#c8104f"
-    },
-    {
-      "type": "color",
-      "id": "image_fallback_color",
-      "label": "Image fallback color",
-      "default": "#07145e"
     },
     {
       "type": "color",

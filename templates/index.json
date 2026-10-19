@@ -130,6 +130,45 @@
         "accessibility_info": "Slideshow about our brand"
       }
     },
+    "product_showcase_marquee": {
+      "type": "product-showcase-marquee",
+      "blocks": {
+        "product_DQwpBc": {
+          "type": "product",
+          "settings": {
+            "product": "lomani-private-collection-silver-bloom-edp-copy"
+          }
+        },
+        "product_YkgUG4": {
+          "type": "product",
+          "settings": {
+            "product": "black-opium-prada-luna-rossa-100ml-copy"
+          }
+        },
+        "product_VT7Ta9": {
+          "type": "product",
+          "settings": {
+            "product": "black-opium-prada-luna-rossa-100ml-copy"
+          }
+        }
+      },
+      "block_order": [
+        "product_DQwpBc",
+        "product_YkgUG4",
+        "product_VT7Ta9"
+      ],
+      "name": "Product showcase",
+      "settings": {
+        "product": "lomani-private-collection-silver-bloom-edp-copy",
+        "fallback_title": "Choose a featured product",
+        "description": "",
+        "button_label": "Choose options",
+        "background_word": "SALE",
+        "background_color": "#f2f2f2",
+        "text_color": "#111111",
+        "accent_color": "#c8104f"
+      }
+    },
     "brand_background_showcase": {
       "type": "brand-background-showcase",
       "blocks": {
@@ -277,7 +316,6 @@
         "mobile_image_height": 55,
         "strip_height": 125,
         "background_color": "#c8104f",
-        "image_fallback_color": "#07145e",
         "text_color": "#ffffff",
         "accent_text_color": "#ffffff"
       }
@@ -315,6 +353,7 @@
   "order": [
     "image_banner",
     "slideshow_gMEz3Q",
+    "product_showcase_marquee",
     "marquee_bar_q7eNG3",
     "brand_background_showcase",
     "featured_collection",
