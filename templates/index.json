@@ -384,20 +384,32 @@
         "padding_bottom": 36
       }
     },
-    "video_PKax77": {
-      "type": "video",
-      "name": "t:sections.video.presets.name",
-      "settings": {
-        "heading": "Video",
-        "heading_size": "h1",
-        "enable_video_looping": false,
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-        "description": "",
-        "full_width": false,
-        "color_scheme": "",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
+    "customer_testimonials": {
+      "type": "customer-testimonials",
+      "blocks": {
+        "testimonial_tom_berry": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Really went out of their way to make me feel special as a customer, highly recommend!",
+            "name": "Tom Berry",
+            "role": ""
+          }
+        },
+        "testimonial_sarah_williams": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Beautiful fragrance, fast delivery, and excellent service.",
+            "name": "Sarah Williams",
+            "role": ""
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_tom_berry",
+        "testimonial_sarah_williams"
+      ],
+      "name": "Customer testimonials",
+      "settings": {}
     }
   },
   "order": [
@@ -409,6 +421,6 @@
     "featured_collection_4HQwtp",
     "brand_background_showcase",
     "featured_collection_NKzjtm",
-    "video_PKax77"
+    "customer_testimonials"
   ]
 }

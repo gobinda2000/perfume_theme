@@ -1,0 +1,367 @@
+{%- style -%}
+  #CustomerTestimonials-{{ section.id }} {
+    --testimonial-background: {{ section.settings.background_color }};
+    --testimonial-text: {{ section.settings.text_color }};
+    --testimonial-accent: {{ section.settings.accent_color }};
+    background: var(--testimonial-background);
+    color: var(--testimonial-text);
+  }
+
+  #CustomerTestimonials-{{ section.id }} .customer-testimonials__inner {
+    position: relative;
+    display: flex;
+    min-height: {{ section.settings.section_height }}px;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 8rem;
+    overflow: hidden;
+  }
+
+  #CustomerTestimonials-{{ section.id }} .customer-testimonials__slides {
+    width: min(100%, 95rem);
+  }
+
+  #CustomerTestimonials-{{ section.id }} .customer-testimonials__slide {
+    display: none;
+    text-align: center;
+  }
+
+  #CustomerTestimonials-{{ section.id }} .customer-testimonials__slide.is-active {
+    display: block;
+    animation: customer-testimonials-fade-in 450ms ease both;
+  }
+
+  #CustomerTestimonials-{{ section.id }} .customer-testimonials__quote-mark {
+    display: block;
+    margin-bottom: 2.5rem;
+    color: var(--testimonial-accent);
+    font-family: Georgia, serif;
+    font-size: 7rem;
+    line-height: 0.45;
+  }
+
+  #CustomerTestimonials-{{ section.id }} .customer-testimonials__quote {
+    max-width: 95rem;
+    margin: 0 auto 4.8rem;
+    font-size: clamp(2.6rem, 3.2vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.25;
+  }
+
+  #CustomerTestimonials-{{ section.id }} .customer-testimonials__avatar {
+    width: {{ section.settings.avatar_size }}px;
+    height: {{ section.settings.avatar_size }}px;
+    margin: 0 auto 2rem;
+    overflow: hidden;
+    border-radius: 50%;
+    background: #f0b83d;
+  }
+
+  #CustomerTestimonials-{{ section.id }} .customer-testimonials__avatar img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #CustomerTestimonials-{{ section.id }} .customer-testimonials__avatar .placeholder-svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  #CustomerTestimonials-{{ section.id }} .customer-testimonials__name {
+    margin: 0;
+    font-size: 1.9rem;
+    font-weight: 400;
+  }
+
+  #CustomerTestimonials-{{ section.id }} .customer-testimonials__role {
+    margin: 0.6rem 0 0;
+    color: rgba(0, 0, 0, 0.55);
+    font-size: 1.4rem;
+  }
+
+  #CustomerTestimonials-{{ section.id }} .customer-testimonials__arrow {
+    position: absolute;
+    top: 50%;
+    display: grid;
+    width: 5.2rem;
+    height: 5.2rem;
+    place-items: center;
+    border: 0.1rem solid currentColor;
+    border-radius: 50%;
+    color: inherit;
+    background: transparent;
+    cursor: pointer;
+    transform: translateY(-50%);
+  }
+
+  #CustomerTestimonials-{{ section.id }} .customer-testimonials__arrow:hover,
+  #CustomerTestimonials-{{ section.id }} .customer-testimonials__arrow:focus-visible {
+    color: #fff;
+    background: #111;
+  }
+
+  #CustomerTestimonials-{{ section.id }} .customer-testimonials__arrow--previous {
+    left: 3rem;
+  }
+
+  #CustomerTestimonials-{{ section.id }} .customer-testimonials__arrow--next {
+    right: 3rem;
+  }
+
+  #CustomerTestimonials-{{ section.id }} .customer-testimonials__arrow svg {
+    width: 1.8rem;
+    height: 1.8rem;
+    pointer-events: none;
+  }
+
+  #CustomerTestimonials-{{ section.id }} .customer-testimonials__arrow--previous svg {
+    transform: rotate(90deg);
+  }
+
+  #CustomerTestimonials-{{ section.id }} .customer-testimonials__arrow--next svg {
+    transform: rotate(-90deg);
+  }
+
+  @keyframes customer-testimonials-fade-in {
+    from { opacity: 0; transform: translateY(1rem); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media screen and (max-width: 749px) {
+    #CustomerTestimonials-{{ section.id }} .customer-testimonials__inner {
+      min-height: {{ section.settings.mobile_height }}px;
+      padding: 5rem 5.5rem;
+    }
+
+    #CustomerTestimonials-{{ section.id }} .customer-testimonials__quote {
+      margin-bottom: 3.5rem;
+      font-size: 2.4rem;
+    }
+
+    #CustomerTestimonials-{{ section.id }} .customer-testimonials__quote-mark {
+      margin-bottom: 1.8rem;
+      font-size: 5.5rem;
+    }
+
+    #CustomerTestimonials-{{ section.id }} .customer-testimonials__arrow {
+      width: 4rem;
+      height: 4rem;
+    }
+
+    #CustomerTestimonials-{{ section.id }} .customer-testimonials__arrow--previous {
+      left: 1.2rem;
+    }
+
+    #CustomerTestimonials-{{ section.id }} .customer-testimonials__arrow--next {
+      right: 1.2rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #CustomerTestimonials-{{ section.id }} .customer-testimonials__slide.is-active {
+      animation: none;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  id="CustomerTestimonials-{{ section.id }}"
+  class="customer-testimonials"
+  data-customer-testimonials
+  aria-label="{{ section.settings.accessibility_label | escape }}"
+>
+  <div class="customer-testimonials__inner">
+    <div class="customer-testimonials__slides" aria-live="polite">
+      {%- for block in section.blocks -%}
+        <article
+          class="customer-testimonials__slide{% if forloop.first %} is-active{% endif %}"
+          data-testimonial-slide="{{ forloop.index0 }}"
+          {% unless forloop.first %}hidden{% endunless %}
+          {{ block.shopify_attributes }}
+        >
+          <span class="customer-testimonials__quote-mark" aria-hidden="true">“</span>
+          <blockquote class="customer-testimonials__quote">
+            {{ block.settings.quote | escape | newline_to_br }}
+          </blockquote>
+          <div class="customer-testimonials__avatar">
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 240
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '120, 180, 240',
+                  sizes: '120px',
+                  alt: block.settings.name
+              }}
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag }}
+            {%- endif -%}
+          </div>
+          <p class="customer-testimonials__name">{{ block.settings.name | escape }}</p>
+          {%- if block.settings.role != blank -%}
+            <p class="customer-testimonials__role">{{ block.settings.role | escape }}</p>
+          {%- endif -%}
+        </article>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.blocks.size > 1 -%}
+      <button
+        class="customer-testimonials__arrow customer-testimonials__arrow--previous"
+        type="button"
+        data-testimonial-previous
+        aria-label="Previous testimonial"
+      >
+        {{- 'icon-caret.svg' | inline_asset_content -}}
+      </button>
+      <button
+        class="customer-testimonials__arrow customer-testimonials__arrow--next"
+        type="button"
+        data-testimonial-next
+        aria-label="Next testimonial"
+      >
+        {{- 'icon-caret.svg' | inline_asset_content -}}
+      </button>
+    {%- endif -%}
+  </div>
+</section>
+
+<script>
+  (() => {
+    const root = document.querySelector('#CustomerTestimonials-{{ section.id }}');
+    if (!root || root.dataset.initialized === 'true') return;
+    root.dataset.initialized = 'true';
+
+    const slides = [...root.querySelectorAll('[data-testimonial-slide]')];
+    if (slides.length < 2) return;
+    let activeIndex = 0;
+
+    const showSlide = (nextIndex) => {
+      activeIndex = (nextIndex + slides.length) % slides.length;
+      slides.forEach((slide, index) => {
+        const isActive = index === activeIndex;
+        slide.classList.toggle('is-active', isActive);
+        slide.hidden = !isActive;
+      });
+    };
+
+    root.querySelector('[data-testimonial-previous]').addEventListener('click', () => showSlide(activeIndex - 1));
+    root.querySelector('[data-testimonial-next]').addEventListener('click', () => showSlide(activeIndex + 1));
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Customer testimonials",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "accessibility_label",
+      "label": "Accessibility label",
+      "default": "Customer testimonials"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "label": "Desktop section height",
+      "min": 350,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 620
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "label": "Mobile section height",
+      "min": 350,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "default": 520
+    },
+    {
+      "type": "range",
+      "id": "avatar_size",
+      "label": "Avatar size",
+      "min": 60,
+      "max": 180,
+      "step": 5,
+      "unit": "px",
+      "default": 90
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Quote mark color",
+      "default": "#c8104f"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "Really went out of their way to make me feel special as a customer, highly recommend!"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Customer image"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Customer name",
+          "default": "Tom Berry"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Customer role",
+          "default": "Verified customer"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Customer testimonials",
+      "blocks": [
+        {
+          "type": "testimonial"
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Beautiful fragrance, fast delivery, and excellent service.",
+            "name": "Sarah Williams"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
