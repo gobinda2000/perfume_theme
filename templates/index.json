@@ -362,9 +362,9 @@
       "settings": {
         "collection": "necklace",
         "products_to_show": 5,
-        "title": "Featured collection",
+        "title": "&nbsp;Best sellers&nbsp;",
         "heading_size": "h1",
-        "description": "",
+        "description": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry<br/><br/></p>",
         "show_description": false,
         "description_style": "body",
         "columns_desktop": 4,
