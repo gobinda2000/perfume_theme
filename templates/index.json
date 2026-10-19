@@ -236,14 +236,13 @@
     },
     "featured_collection_4HQwtp": {
       "type": "featured-collection",
-      "disabled": true,
       "name": "t:sections.featured-collection.presets.name",
       "settings": {
         "collection": "necklace",
         "products_to_show": 9,
-        "title": "Featured collection",
+        "title": "&nbsp;New Arrivals&nbsp;",
         "heading_size": "h1",
-        "description": "",
+        "description": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>",
         "show_description": false,
         "description_style": "body",
         "columns_desktop": 4,
