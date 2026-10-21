@@ -198,6 +198,12 @@
     "product_showcase_marquee": {
       "type": "product-showcase-marquee",
       "blocks": {
+        "product_B8NkX7": {
+          "type": "product",
+          "settings": {
+            "product": "black-opium-prada-luna-rossa-100ml-copy"
+          }
+        },
         "product_DQwpBc": {
           "type": "product",
           "settings": {
@@ -218,6 +224,7 @@
         }
       },
       "block_order": [
+        "product_B8NkX7",
         "product_DQwpBc",
         "product_YkgUG4",
         "product_VT7Ta9"
@@ -403,12 +410,10 @@
     },
     "service_benefits": {
       "type": "service-benefits",
-      "name": "Service benefits",
       "blocks": {
         "free_shipping": {
           "type": "benefit",
           "settings": {
-            "image": "",
             "icon": "icon-box.svg",
             "title": "Free Shipping",
             "description": "Free shipping on over $49"
@@ -417,7 +422,6 @@
         "money_guarantee": {
           "type": "benefit",
           "settings": {
-            "image": "",
             "icon": "icon-lock.svg",
             "title": "Money Guarantee",
             "description": "Within 30 days for an exchange"
@@ -426,7 +430,6 @@
         "online_support": {
           "type": "benefit",
           "settings": {
-            "image": "",
             "icon": "icon-chat-bubble.svg",
             "title": "Online Support",
             "description": "24 hours a day, 7 days a week"
@@ -435,7 +438,6 @@
         "flexible_payment": {
           "type": "benefit",
           "settings": {
-            "image": "",
             "icon": "icon-discount.svg",
             "title": "Flexible Payment",
             "description": "Pay with Multiple Credit Cards"
@@ -448,6 +450,7 @@
         "online_support",
         "flexible_payment"
       ],
+      "name": "Service benefits",
       "settings": {
         "color_scheme": "scheme-1",
         "padding_top": 24,
@@ -479,7 +482,15 @@
         "testimonial_sarah_williams"
       ],
       "name": "Customer testimonials",
-      "settings": {}
+      "settings": {
+        "accessibility_label": "Customer testimonials",
+        "section_height": 620,
+        "mobile_height": 520,
+        "avatar_size": 90,
+        "background_color": "#ffffff",
+        "text_color": "#111111",
+        "accent_color": "#c8104f"
+      }
     }
   },
   "order": [
