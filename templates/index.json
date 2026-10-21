@@ -394,6 +394,15 @@
     "customer_testimonials": {
       "type": "customer-testimonials",
       "blocks": {
+        "testimonial_zKFfBw": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "\"Fantastic fabrics, great fit and no issues going through the laundry either!...\"",
+            "image": "shopify://shop_images/t1-1_2.jpg",
+            "name": "Tom Berry",
+            "role": "Verified customer"
+          }
+        },
         "testimonial_tom_berry": {
           "type": "testimonial",
           "settings": {
@@ -413,6 +422,7 @@
         }
       },
       "block_order": [
+        "testimonial_zKFfBw",
         "testimonial_tom_berry",
         "testimonial_sarah_williams"
       ],
