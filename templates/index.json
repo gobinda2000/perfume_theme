@@ -397,7 +397,8 @@
         "testimonial_tom_berry": {
           "type": "testimonial",
           "settings": {
-            "quote": "Really went out of their way to make me feel special as a customer, highly recommend!",
+            "quote": "“I have shopped here to buy shirt for my girl friend and they both love the fit and quality!”",
+            "image": "shopify://shop_images/t2-1.jpg",
             "name": "Tom Berry",
             "role": ""
           }
@@ -418,9 +419,9 @@
       "name": "Customer testimonials",
       "settings": {
         "accessibility_label": "Customer testimonials",
-        "section_height": 620,
+        "section_height": 350,
         "mobile_height": 520,
-        "avatar_size": 90,
+        "avatar_size": 60,
         "background_color": "#ffffff",
         "text_color": "#111111",
         "accent_color": "#c8104f"
