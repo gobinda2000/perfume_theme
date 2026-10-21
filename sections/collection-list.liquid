@@ -257,27 +257,174 @@
 
 <script>
   (() => {
-    const slider = document.querySelector('#Slider-{{ section.id }}');
+    const SECTION_ID = '{{ section.id }}';
+    const slider = document.querySelector('#Slider-' + SECTION_ID);
     if (!slider) return;
     const sliderComponent = slider.closest('slider-component');
-    let centerIndex = 1;
+    if (!sliderComponent) return;
 
-    const updateCenterCard = (index) => {
-      const items = slider.querySelectorAll('.collection-list__item');
-      centerIndex = Math.max(0, Math.min(index, items.length - 1));
-      items.forEach((item, itemIndex) => {
-        item.classList.toggle('is-center', itemIndex === centerIndex);
+    /* ── Collect original slides ── */
+    const originalSlides = Array.from(slider.querySelectorAll('.collection-list__item'));
+    const totalOriginal = originalSlides.length;
+    if (totalOriginal < 2) return; /* need at least 2 to loop */
+
+    /* ── Clone slides: append copies of ALL originals at end, prepend at start ── */
+    const suffixClones = [];
+    const prefixClones = [];
+
+    originalSlides.forEach((slide, i) => {
+      const clone = slide.cloneNode(true);
+      clone.removeAttribute('id');
+      clone.classList.add('slider__slide--clone');
+      clone.setAttribute('data-clone-of', i);
+      suffixClones.push(clone);
+    });
+    originalSlides.forEach((slide, i) => {
+      const clone = slide.cloneNode(true);
+      clone.removeAttribute('id');
+      clone.classList.add('slider__slide--clone');
+      clone.setAttribute('data-clone-of', i);
+      prefixClones.push(clone);
+    });
+
+    /* Append suffix clones */
+    suffixClones.forEach(c => slider.appendChild(c));
+    /* Prepend prefix clones (in reverse so order is preserved) */
+    prefixClones.reverse().forEach(c => slider.insertBefore(c, slider.firstElementChild));
+
+    /* All items (prefix clones + originals + suffix clones) */
+    const allItems = () => Array.from(slider.querySelectorAll('.collection-list__item'));
+
+    /* ── Compute geometry helpers ── */
+    const getItemOffset = () => {
+      const items = allItems();
+      if (items.length < 2) return 0;
+      return items[1].offsetLeft - items[0].offsetLeft;
+    };
+
+    /* ── Jump (no animation) to a specific item index ── */
+    const jumpToIndex = (idx) => {
+      const offset = getItemOffset();
+      slider.style.scrollBehavior = 'auto';
+      slider.scrollLeft = idx * offset;
+      /* Restore smooth after a tick */
+      requestAnimationFrame(() => {
+        slider.style.scrollBehavior = '';
       });
     };
 
-    sliderComponent?.querySelector('button[name="previous"]')?.addEventListener('click', () => {
-      updateCenterCard(centerIndex - 1);
-    });
-    sliderComponent?.querySelector('button[name="next"]')?.addEventListener('click', () => {
-      updateCenterCard(centerIndex + 1);
-    });
-    window.addEventListener('resize', () => updateCenterCard(centerIndex));
+    /* ── Initial position: jump to the first REAL slide (index = totalOriginal) ── */
+    const realStartIdx = totalOriginal; /* prefix clones occupy indices 0..(totalOriginal-1) */
+    requestAnimationFrame(() => jumpToIndex(realStartIdx));
+
+    /* ── Disable the default boundary-disable on prev/next buttons ── */
+    if (sliderComponent.enableSliderLooping !== undefined) {
+      sliderComponent.enableSliderLooping = true;
+    }
+    const prevBtn = sliderComponent.querySelector('button[name="previous"]');
+    const nextBtn = sliderComponent.querySelector('button[name="next"]');
+    if (prevBtn) prevBtn.removeAttribute('disabled');
+    if (nextBtn) nextBtn.removeAttribute('disabled');
+
+    /* ── Center-card tracking (relative to original index) ── */
+    let centerRealIndex = 1; /* start with 2nd card centered */
+    const updateCenterCard = (realIdx) => {
+      centerRealIndex = ((realIdx % totalOriginal) + totalOriginal) % totalOriginal;
+      allItems().forEach(item => {
+        const origIdx = item.hasAttribute('data-clone-of')
+          ? parseInt(item.getAttribute('data-clone-of'))
+          : originalSlides.indexOf(item);
+        item.classList.toggle('is-center', origIdx === centerRealIndex);
+      });
+    };
     updateCenterCard(1);
+
+    /* ── Handle prev/next clicks with infinite loop ── */
+    let isJumping = false;
+
+    const scrollToSlideIndex = (globalIdx) => {
+      const offset = getItemOffset();
+      slider.scrollTo({ left: globalIdx * offset, behavior: 'smooth' });
+    };
+
+    /* Track which global index we're on */
+    let currentGlobalIdx = realStartIdx + 1; /* starts centered on 2nd real slide visually (index realStartIdx+1 in the DOM) */
+
+    /* Actually we want to track by scroll position */
+    const getGlobalIndexFromScroll = () => {
+      const offset = getItemOffset();
+      if (offset === 0) return realStartIdx;
+      return Math.round(slider.scrollLeft / offset);
+    };
+
+    /* Override native button behavior */
+    const handlePrev = (e) => {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      const curIdx = getGlobalIndexFromScroll();
+      const targetIdx = curIdx - 1;
+      centerRealIndex = ((centerRealIndex - 1) % totalOriginal + totalOriginal) % totalOriginal;
+      updateCenterCard(centerRealIndex);
+      scrollToSlideIndex(targetIdx);
+    };
+    const handleNext = (e) => {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      const curIdx = getGlobalIndexFromScroll();
+      const targetIdx = curIdx + 1;
+      centerRealIndex = (centerRealIndex + 1) % totalOriginal;
+      updateCenterCard(centerRealIndex);
+      scrollToSlideIndex(targetIdx);
+    };
+
+    if (prevBtn) prevBtn.addEventListener('click', handlePrev, true);
+    if (nextBtn) nextBtn.addEventListener('click', handleNext, true);
+
+    /* ── Boundary detection: silently jump when entering clone territory ── */
+    let scrollTimeout;
+    slider.addEventListener('scroll', () => {
+      if (isJumping) return;
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        const offset = getItemOffset();
+        if (offset === 0) return;
+        const curIdx = getGlobalIndexFromScroll();
+
+        /* If we scrolled into the SUFFIX clones (past all originals) */
+        if (curIdx >= realStartIdx + totalOriginal) {
+          isJumping = true;
+          const mappedIdx = realStartIdx + (curIdx - realStartIdx - totalOriginal);
+          jumpToIndex(mappedIdx);
+          requestAnimationFrame(() => { isJumping = false; });
+        }
+        /* If we scrolled into the PREFIX clones */
+        else if (curIdx < realStartIdx) {
+          isJumping = true;
+          const mappedIdx = realStartIdx + totalOriginal - (realStartIdx - curIdx);
+          jumpToIndex(mappedIdx);
+          requestAnimationFrame(() => { isJumping = false; });
+        }
+
+        /* Keep buttons enabled */
+        if (prevBtn) prevBtn.removeAttribute('disabled');
+        if (nextBtn) nextBtn.removeAttribute('disabled');
+      }, 120);
+    });
+
+    /* ── Keep buttons always enabled even after SliderComponent.update() ── */
+    const keepButtonsEnabled = () => {
+      if (prevBtn) prevBtn.removeAttribute('disabled');
+      if (nextBtn) nextBtn.removeAttribute('disabled');
+    };
+    const observer = new MutationObserver(keepButtonsEnabled);
+    if (prevBtn) observer.observe(prevBtn, { attributes: true, attributeFilter: ['disabled'] });
+    if (nextBtn) observer.observe(nextBtn, { attributes: true, attributeFilter: ['disabled'] });
+
+    /* ── Re-center on resize ── */
+    window.addEventListener('resize', () => {
+      updateCenterCard(centerRealIndex);
+      jumpToIndex(realStartIdx + centerRealIndex);
+    });
   })();
 </script>
 
