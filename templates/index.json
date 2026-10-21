@@ -367,7 +367,7 @@
       "name": "t:sections.featured-collection.presets.name",
       "settings": {
         "collection": "necklace",
-        "products_to_show": 5,
+        "products_to_show": 8,
         "title": "&nbsp;Best sellers&nbsp;",
         "heading_size": "h1",
         "description": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry<br/><br/></p>",
