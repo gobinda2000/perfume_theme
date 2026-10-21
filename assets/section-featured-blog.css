@@ -121,8 +121,8 @@
 .editorial-blog__controls {
   position: absolute;
   top: 50%;
-  right: -1.5rem;
-  left: -1.5rem;
+  right: -6.5rem;
+  left: -6.5rem;
   z-index: 2;
   justify-content: space-between;
   transform: translateY(-50%);

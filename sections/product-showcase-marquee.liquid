@@ -91,18 +91,65 @@
   #ProductShowcase-{{ section.id }} .product-showcase__products {
     display: flex;
     gap: 2.5rem;
+    width: calc(50% - 8%);
     margin: 0 8% 0 50%;
     padding: 0 0 3.5rem;
     overflow-x: auto;
     scrollbar-width: none;
+    scroll-snap-type: x mandatory;
   }
 
   #ProductShowcase-{{ section.id }} .product-showcase__products::-webkit-scrollbar {
     display: none;
   }
 
+  #ProductShowcase-{{ section.id }} .product-showcase__slider {
+    position: relative;
+    padding-bottom: 3.5rem;
+  }
+
+  #ProductShowcase-{{ section.id }} .product-showcase__slider-button {
+    position: absolute;
+    z-index: 1;
+    top: 7.7rem;
+    display: flex;
+    width: 4.6rem;
+    height: 4.6rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0.1rem solid currentColor;
+    border-radius: 50%;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  #ProductShowcase-{{ section.id }} .product-showcase__slider-button svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  #ProductShowcase-{{ section.id }} .product-showcase__slider-button--prev {
+    left: calc(50% - 4.5rem);
+  }
+
+  #ProductShowcase-{{ section.id }} .product-showcase__slider-button--prev svg {
+    transform: rotate(180deg);
+  }
+
+  #ProductShowcase-{{ section.id }} .product-showcase__slider-button--next {
+    right: 3%;
+  }
+
+  #ProductShowcase-{{ section.id }} .product-showcase__slider-button:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
   #ProductShowcase-{{ section.id }} .product-showcase__product {
-    flex: 0 0 16rem;
+    flex: 0 0 calc((100% - 5rem) / 3);
+    scroll-snap-align: start;
   }
 
   #ProductShowcase-{{ section.id }} .product-showcase__product a {
@@ -112,7 +159,7 @@
 
   #ProductShowcase-{{ section.id }} .product-showcase__product-image {
     display: flex;
-    height: 17rem;
+    height: 14.4rem;
     align-items: center;
     justify-content: center;
     border: 0.1rem solid rgba(0, 0, 0, 0.08);
@@ -155,8 +202,21 @@
     }
 
     #ProductShowcase-{{ section.id }} .product-showcase__products {
+      width: auto;
       margin: 0;
       padding: 0 2rem 2.5rem;
+    }
+
+    #ProductShowcase-{{ section.id }} .product-showcase__slider {
+      padding-bottom: 0;
+    }
+
+    #ProductShowcase-{{ section.id }} .product-showcase__slider-button {
+      display: none;
+    }
+
+    #ProductShowcase-{{ section.id }} .product-showcase__product {
+      flex-basis: 16rem;
     }
   }
 {%- endstyle -%}
@@ -208,31 +268,56 @@
   </div>
 
   {%- if section.blocks.size > 0 -%}
-    <div class="product-showcase__products" role="list">
-      {%- for block in section.blocks -%}
-        {%- assign product = block.settings.product -%}
-        <div class="product-showcase__product" role="listitem" {{ block.shopify_attributes }}>
-          <a href="{{ product.url | default: '#' }}">
-            <div class="product-showcase__product-image">
-              {%- if product != blank and product.featured_image != blank -%}
-                {{
-                  product.featured_image
-                  | image_url: width: 400
-                  | image_tag:
-                    widths: '160, 240, 320, 400',
-                    sizes: '160px',
-                    loading: 'lazy',
-                    alt: product.featured_image.alt
-                }}
-              {%- else -%}
-                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-              {%- endif -%}
-            </div>
-            <span class="product-showcase__product-title">{{ product.title | default: 'Select a product' | escape }}</span>
-          </a>
-        </div>
-      {%- endfor -%}
-    </div>
+    <slider-component class="product-showcase__slider">
+      <button
+        type="button"
+        class="product-showcase__slider-button product-showcase__slider-button--prev"
+        name="previous"
+        aria-label="{{ 'general.slider.previous_slide' | t }}"
+      >
+        {{- 'icon-arrow.svg' | inline_asset_content -}}
+      </button>
+
+      <div id="Slider-{{ section.id }}" class="product-showcase__products" role="list">
+        {%- for block in section.blocks -%}
+          {%- assign product = block.settings.product -%}
+          <div
+            id="Slide-{{ section.id }}-{{ forloop.index }}"
+            class="product-showcase__product"
+            role="listitem"
+            {{ block.shopify_attributes }}
+          >
+            <a href="{{ product.url | default: '#' }}">
+              <div class="product-showcase__product-image">
+                {%- if product != blank and product.featured_image != blank -%}
+                  {{
+                    product.featured_image
+                    | image_url: width: 400
+                    | image_tag:
+                      widths: '160, 240, 320, 400',
+                      sizes: '160px',
+                      loading: 'lazy',
+                      alt: product.featured_image.alt
+                  }}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+              <span class="product-showcase__product-title">{{ product.title | default: 'Select a product' | escape }}</span>
+            </a>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <button
+        type="button"
+        class="product-showcase__slider-button product-showcase__slider-button--next"
+        name="next"
+        aria-label="{{ 'general.slider.next_slide' | t }}"
+      >
+        {{- 'icon-arrow.svg' | inline_asset_content -}}
+      </button>
+    </slider-component>
   {%- endif -%}
 </section>
 
