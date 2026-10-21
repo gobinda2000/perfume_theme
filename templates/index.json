@@ -427,6 +427,7 @@
         "testimonial_tom_berry",
         "testimonial_sarah_williams"
       ],
+      "custom_css": [],
       "name": "Customer testimonials",
       "settings": {
         "accessibility_label": "Customer testimonials",
