@@ -408,6 +408,41 @@
         "padding_bottom": 60
       }
     },
+    "customer_testimonials": {
+      "type": "customer-testimonials",
+      "blocks": {
+        "testimonial_tom_berry": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Really went out of their way to make me feel special as a customer, highly recommend!",
+            "name": "Tom Berry",
+            "role": ""
+          }
+        },
+        "testimonial_sarah_williams": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Beautiful fragrance, fast delivery, and excellent service.",
+            "name": "Sarah Williams",
+            "role": ""
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_tom_berry",
+        "testimonial_sarah_williams"
+      ],
+      "name": "Customer testimonials",
+      "settings": {
+        "accessibility_label": "Customer testimonials",
+        "section_height": 620,
+        "mobile_height": 520,
+        "avatar_size": 90,
+        "background_color": "#ffffff",
+        "text_color": "#111111",
+        "accent_color": "#c8104f"
+      }
+    },
     "service_benefits": {
       "type": "service-benefits",
       "blocks": {
@@ -456,41 +491,6 @@
         "padding_top": 24,
         "padding_bottom": 24
       }
-    },
-    "customer_testimonials": {
-      "type": "customer-testimonials",
-      "blocks": {
-        "testimonial_tom_berry": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "Really went out of their way to make me feel special as a customer, highly recommend!",
-            "name": "Tom Berry",
-            "role": ""
-          }
-        },
-        "testimonial_sarah_williams": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "Beautiful fragrance, fast delivery, and excellent service.",
-            "name": "Sarah Williams",
-            "role": ""
-          }
-        }
-      },
-      "block_order": [
-        "testimonial_tom_berry",
-        "testimonial_sarah_williams"
-      ],
-      "name": "Customer testimonials",
-      "settings": {
-        "accessibility_label": "Customer testimonials",
-        "section_height": 620,
-        "mobile_height": 520,
-        "avatar_size": 90,
-        "background_color": "#ffffff",
-        "text_color": "#111111",
-        "accent_color": "#c8104f"
-      }
     }
   },
   "order": [
@@ -503,7 +503,7 @@
     "brand_background_showcase",
     "featured_collection_NKzjtm",
     "featured_blog_editorial",
-    "service_benefits",
-    "customer_testimonials"
+    "customer_testimonials",
+    "service_benefits"
   ]
 }
