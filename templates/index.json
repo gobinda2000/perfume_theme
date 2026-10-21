@@ -444,7 +444,7 @@
       "name": "Featured blog editorial",
       "settings": {
         "blog": "news",
-        "post_limit": 3,
+        "post_limit": 4,
         "heading": "Latest news",
         "subheading": "<p>Discover the latest stories, inspiration, and fragrance news.</p>",
         "heading_size": "h1",
