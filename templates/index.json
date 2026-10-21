@@ -415,7 +415,8 @@
         "testimonial_sarah_williams": {
           "type": "testimonial",
           "settings": {
-            "quote": "Beautiful fragrance, fast delivery, and excellent service.",
+            "quote": "\"Really went out of their way to make me feel special as a customer, highly recommend!\"",
+            "image": "shopify://shop_images/t3-1.jpg",
             "name": "Sarah Williams",
             "role": ""
           }
