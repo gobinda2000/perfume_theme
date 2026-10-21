@@ -57,7 +57,7 @@
       scroll-behavior: smooth;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
-      width: 92%;
+      width: 100%;
       margin: 0 auto;
     }
 
@@ -68,15 +68,16 @@
     .section-{{ section.id }}-padding .collection-list.slider--desktop .collection-list__item {
       align-self: center;
       box-sizing: border-box;
-      flex: 0 0 29.5%;
-      width: 29.5%;
-      max-width: 29.5%;
+      flex: 0 0 31%;
+      width: 31%;
+      max-width: 31%;
+      scroll-snap-align: start;
     }
 
     .section-{{ section.id }}-padding .collection-list.slider--desktop .collection-list__item.is-center {
-      flex-basis: 32.8%;
-      width: 32.8%;
-      max-width: 32.8%;
+      flex-basis: 34%;
+      width: 34%;
+      max-width: 34%;
     }
 
     .section-{{ section.id }}-padding .collection-list.slider--desktop .collection-list__item:first-child {
