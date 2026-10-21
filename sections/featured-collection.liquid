@@ -97,36 +97,55 @@
     overflow: visible;
   }
 
+  /* === Reference product action icons === */
   #collection-{{ section.id }} .reference-product-actions {
     position: absolute;
     z-index: 3;
     right: 1.2rem;
     bottom: 1.2rem;
     display: grid;
-    gap: 0.4rem;
-    opacity: 1;
-    transform: translateX(0);
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    gap: 0.6rem;
+    opacity: 0;
+    transform: translateX(1rem);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
   }
 
-  #collection-{{ section.id }} .card__inner:hover .reference-product-actions,
-  #collection-{{ section.id }} .card__inner:focus-within .reference-product-actions {
+  #collection-{{ section.id }} .card-wrapper:hover .reference-product-actions,
+  #collection-{{ section.id }} .card-wrapper:focus-within .reference-product-actions {
     opacity: 1;
     transform: translateX(0);
+    pointer-events: auto;
   }
+
+  /* Stagger the icon animation */
+  #collection-{{ section.id }} .reference-product-action:nth-child(1) { transition-delay: 0s; }
+  #collection-{{ section.id }} .reference-product-action:nth-child(2) { transition-delay: 0.04s; }
+  #collection-{{ section.id }} .reference-product-action:nth-child(3) { transition-delay: 0.08s; }
+  #collection-{{ section.id }} .reference-product-action:nth-child(4) { transition-delay: 0.12s; }
 
   #collection-{{ section.id }} .reference-product-action {
     position: relative;
     z-index: 4;
     display: grid;
-    width: 4.4rem;
-    height: 4.4rem;
+    width: 4rem;
+    height: 4rem;
     place-items: center;
-    border: 0;
+    border: 0.1rem solid #e8e8e8;
+    border-radius: 0;
     background: #fff;
-    color: #111;
+    color: #333;
     cursor: pointer;
-    box-shadow: 0 0.1rem 0.5rem rgb(0 0 0 / 12%);
+    box-shadow: 0 0.2rem 0.6rem rgb(0 0 0 / 8%);
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, opacity 0.3s ease;
+    opacity: 0;
+    transform: translateX(1rem);
+  }
+
+  #collection-{{ section.id }} .card-wrapper:hover .reference-product-action,
+  #collection-{{ section.id }} .card-wrapper:focus-within .reference-product-action {
+    opacity: 1;
+    transform: translateX(0);
   }
 
   #collection-{{ section.id }} .reference-product-action:hover,
@@ -136,139 +155,47 @@
   }
 
   #collection-{{ section.id }} .reference-product-action svg {
-    width: 2rem;
-    height: 2rem;
+    width: 1.8rem;
+    height: 1.8rem;
     pointer-events: none;
   }
 
-  .quick-view-modal {
-    position: fixed;
-    z-index: 100;
-    inset: 0;
-    display: none;
-    place-items: center;
-    padding: 2rem;
-    background: rgb(0 0 0 / 70%);
-  }
-
-  .quick-view-modal.is-open {
-    display: grid;
-  }
-
-  .quick-view-modal__content {
+  /* Quick View tooltip on eye icon */
+  #collection-{{ section.id }} .reference-product-action--quick-view {
     position: relative;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    width: min(100%, 112rem);
-    max-height: 90vh;
-    overflow: auto;
-    padding: 2.4rem;
-    background: #fff;
   }
-
-  .quick-view-modal__image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 42rem;
-    background: #f7f7f7;
-  }
-
-  .quick-view-modal__image img {
-    width: 100%;
-    height: 100%;
-    max-height: 52rem;
-    object-fit: contain;
-  }
-
-  .quick-view-modal__details {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 4rem;
-  }
-
-  .quick-view-modal__vendor {
-    margin: 0 0 1rem;
-    font-size: 1.2rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
-
-  .quick-view-modal__price {
-    margin-bottom: 2.4rem;
-  }
-
-  .quick-view-modal__variant-label,
-  .quick-view-modal__quantity-label {
-    display: block;
-    margin: 1.6rem 0 0.8rem;
-  }
-
-  .quick-view-modal__variant-select,
-  .quick-view-modal__quantity {
-    width: 100%;
-    min-height: 4.4rem;
-    padding: 0 1.2rem;
-    border: 0.1rem solid #bdbdbd;
-    background: #fff;
-  }
-
-  .quick-view-modal__form .button {
-    margin-top: 2rem;
-  }
-
-  .quick-view-modal__buy-now {
-    margin-top: 1rem;
-    background: #111;
-    color: #fff;
-  }
-
-  .quick-view-modal__close {
+  #collection-{{ section.id }} .reference-product-action--quick-view::before {
+    content: 'Quick View';
     position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 1;
-    display: grid;
-    width: 4.4rem;
-    height: 4.4rem;
-    place-items: center;
-    border: 0.1rem solid #ddd;
-    border-radius: 50%;
-    background: #fff;
-    cursor: pointer;
+    right: calc(100% + 0.8rem);
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #fff;
+    background: #111;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
   }
-
-  .quick-view-modal__close svg {
-    width: 1.8rem;
-    height: 1.8rem;
+  #collection-{{ section.id }} .reference-product-action--quick-view::after {
+    content: '';
+    position: absolute;
+    right: calc(100% + 0.2rem);
+    top: 50%;
+    transform: translateY(-50%);
+    border: 0.5rem solid transparent;
+    border-left-color: #111;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
   }
-
-  .quick-view-modal__title {
-    margin: 0 0 2rem;
-  }
-
-  .quick-view-modal__form {
-    margin-top: 2.4rem;
-  }
-
-  .quick-view-modal__form .button {
-    width: 100%;
-  }
-
-  @media screen and (max-width: 749px) {
-    .quick-view-modal__content {
-      grid-template-columns: 1fr;
-      padding: 1rem;
-    }
-
-    .quick-view-modal__image {
-      min-height: 28rem;
-    }
-
-    .quick-view-modal__details {
-      padding: 2.4rem 1.6rem;
-    }
+  #collection-{{ section.id }} .reference-product-action--quick-view:hover::before,
+  #collection-{{ section.id }} .reference-product-action--quick-view:hover::after {
+    opacity: 1;
   }
 
   @media screen and (min-width: 750px) {
@@ -463,50 +390,102 @@
     if (!section || section.dataset.quickViewReady) return;
     section.dataset.quickViewReady = 'true';
 
-    const closeModal = (modal) => {
-      modal.classList.remove('is-open');
-      modal.remove();
-      document.body.classList.remove('overflow-hidden');
-    };
-
-    /* Intercept clicks on [data-quick-view-target] buttons in the capture phase
-       so they fire BEFORE the card-link overlay navigates. */
+    /* Intercept clicks on reference action icons */
     section.addEventListener('click', (event) => {
-      const opener = event.target.closest('[data-quick-view-target]');
-      if (opener) {
-        event.preventDefault();
-        event.stopPropagation();
-        event.stopImmediatePropagation();
-        const template = document.getElementById(opener.dataset.quickViewTarget);
-        if (!template) return;
-        const modal = template.content.firstElementChild.cloneNode(true);
-        document.body.appendChild(modal);
-        requestAnimationFrame(() => {
-          modal.classList.add('is-open');
-          document.body.classList.add('overflow-hidden');
-          modal.querySelector('.quick-view-modal__close')?.focus();
-        });
+      const actionBtn = event.target.closest('.reference-product-action');
+      if (!actionBtn) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+
+      /* --- Quick View (eye icon) → use Shopify built-in quick-add-modal --- */
+      if (actionBtn.classList.contains('reference-product-action--quick-view')) {
+        const productId = actionBtn.dataset.productId;
+        const productUrl = actionBtn.dataset.productUrl;
+        if (!productId || !productUrl) return;
+
+        /* Find or create the quick-add-modal for this product */
+        let modal = document.querySelector('#QuickAdd-' + productId);
+        if (!modal) {
+          /* Build a Shopify quick-add-modal element on the fly */
+          modal = document.createElement('quick-add-modal');
+          modal.id = 'QuickAdd-' + productId;
+          modal.className = 'quick-add-modal';
+          modal.innerHTML = `
+            <div role="dialog" aria-label="Quick view" aria-modal="true"
+                 class="quick-add-modal__content global-settings-popup" tabindex="-1">
+              <button id="ModalClose-${productId}" type="button" class="quick-add-modal__toggle" aria-label="Close">
+                ${document.querySelector('.icon-close, [class*="icon-close"]')?.outerHTML || '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'}
+              </button>
+              <div id="QuickAddInfo-${productId}" class="quick-add-modal__content-info"></div>
+            </div>
+          `;
+          document.body.appendChild(modal);
+        }
+
+        /* Trigger the show method (same as Shopify's standard quick add) */
+        if (modal.show) {
+          /* Create a fake opener button so the loading state works */
+          const fakeOpener = document.createElement('button');
+          fakeOpener.setAttribute('data-product-url', productUrl);
+          fakeOpener.innerHTML = '<span class="loading__spinner hidden"><svg></svg></span>';
+          fakeOpener.style.display = 'none';
+          document.body.appendChild(fakeOpener);
+          modal.show(fakeOpener);
+          /* Clean up fake opener after modal opens */
+          setTimeout(() => fakeOpener.remove(), 2000);
+        }
+        return;
+      }
+
+      /* --- Add to Cart (cart icon) --- */
+      if (actionBtn.classList.contains('reference-product-action--cart')) {
+        const productUrl = actionBtn.dataset.productUrl;
+        const variantId = actionBtn.dataset.variantId;
+        if (variantId) {
+          /* Direct add to cart for single-variant products */
+          const formData = {
+            items: [{ id: parseInt(variantId), quantity: 1 }],
+          };
+          fetch(window.Shopify?.routes?.root + 'cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData),
+          })
+            .then((r) => r.json())
+            .then(() => {
+              /* Refresh cart drawer/notification */
+              const cartNotification = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
+              if (cartNotification) {
+                fetch(window.Shopify?.routes?.root + 'cart.js')
+                  .then((r) => r.json())
+                  .then((cart) => {
+                    const countBubbles = document.querySelectorAll('.cart-count-bubble span');
+                    countBubbles.forEach(s => s.textContent = cart.item_count);
+                  });
+              }
+            })
+            .catch((e) => console.error('Add to cart error:', e));
+        } else if (productUrl) {
+          /* Multi-variant: open quick add modal */
+          actionBtn.classList.add('reference-product-action--quick-view');
+          actionBtn.dataset.productId = actionBtn.dataset.productId || '';
+          actionBtn.click();
+        }
+        return;
+      }
+
+      /* --- Wishlist (heart icon) --- */
+      if (actionBtn.classList.contains('reference-product-action--wishlist')) {
+        actionBtn.classList.toggle('is-active');
+        const svg = actionBtn.querySelector('svg');
+        if (svg) {
+          svg.style.fill = actionBtn.classList.contains('is-active') ? 'currentColor' : 'none';
+        }
         return;
       }
     }, true);
-
-    /* Close modal on backdrop / close-button click */
-    document.addEventListener('click', (event) => {
-      const modal = event.target.closest('.quick-view-modal');
-      if (!modal) return;
-      if (
-        event.target === modal ||
-        event.target.closest('.quick-view-modal__close')
-      ) {
-        closeModal(modal);
-      }
-    }, true);
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key !== 'Escape') return;
-      const modal = document.querySelector('.quick-view-modal.is-open');
-      if (modal) closeModal(modal);
-    });
   })();
 </script>
 

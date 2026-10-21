@@ -113,29 +113,38 @@
               <button
                 type="button"
                 class="reference-product-action reference-product-action--cart"
-                aria-label="Quick add {{ card_product.title | escape }}"
-                data-quick-view-target="QuickView-{{ section_id }}-{{ card_product.id }}"
+                aria-label="{{ 'products.product.add_to_cart' | t }} {{ card_product.title | escape }}"
+                data-product-id="{{ card_product.id }}"
+                data-product-url="{{ card_product.url }}"
+                data-variant-id="{{ card_product.selected_or_first_available_variant.id }}"
               >
-                {{- 'icon-cart.svg' | inline_asset_content -}}
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
               </button>
               <button
                 type="button"
-                class="reference-product-action"
-                aria-label="More options for {{ card_product.title | escape }}"
-                data-quick-view-target="QuickView-{{ section_id }}-{{ card_product.id }}"
+                class="reference-product-action reference-product-action--compare"
+                aria-label="Compare {{ card_product.title | escape }}"
+                data-product-id="{{ card_product.id }}"
+                data-product-url="{{ card_product.url }}"
               >
-                {{- 'icon-copy.svg' | inline_asset_content -}}
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 3H8l-2 4h12l-2-4z"/><path d="M12 7v-4"/><path d="M2 11h20"/></svg>
               </button>
               <button
                 type="button"
                 class="reference-product-action reference-product-action--quick-view"
                 aria-label="Quick view {{ card_product.title | escape }}"
-                data-quick-view-target="QuickView-{{ section_id }}-{{ card_product.id }}"
+                data-product-id="{{ card_product.id }}"
+                data-product-url="{{ card_product.url }}"
               >
                 {{- 'icon-eye.svg' | inline_asset_content -}}
               </button>
-              <button type="button" class="reference-product-action" aria-label="Add {{ card_product.title | escape }} to wishlist">
-                {{- 'icon-heart.svg' | inline_asset_content -}}
+              <button
+                type="button"
+                class="reference-product-action reference-product-action--wishlist"
+                aria-label="Add {{ card_product.title | escape }} to wishlist"
+                data-product-id="{{ card_product.id }}"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
               </button>
             </div>
           {%- endif -%}
@@ -602,56 +611,6 @@
         </div>
       </div>
     </div>
-    {%- if show_reference_actions and card_product.featured_media -%}
-      <template id="QuickView-{{ section_id }}-{{ card_product.id }}">
-        <div class="quick-view-modal" role="dialog" aria-modal="true" aria-label="{{ card_product.title | escape }}">
-          <div class="quick-view-modal__content">
-            <button type="button" class="quick-view-modal__close" aria-label="{{ 'accessibility.close' | t }}">
-              {{- 'icon-close.svg' | inline_asset_content -}}
-            </button>
-            <div class="quick-view-modal__image">
-              {{
-                card_product.featured_media
-                | image_url: width: 900
-                | image_tag: widths: '450, 700, 900', loading: 'lazy', alt: card_product.featured_media.alt
-              }}
-            </div>
-            <div class="quick-view-modal__details">
-              <p class="quick-view-modal__vendor">{{ card_product.vendor | escape }}</p>
-              <h2 class="quick-view-modal__title">{{ card_product.title | escape }}</h2>
-              {% render 'price', product: card_product, price_class: 'quick-view-modal__price', show_compare_at_price: true %}
-              <product-form class="quick-view-modal__form" data-section-id="{{ section_id }}">
-                {%- form 'product', card_product, class: 'form', data-type: 'add-to-cart-form' -%}
-                  {% if card_product.has_only_default_variant == false %}
-                    <label class="quick-view-modal__variant-label" for="QuickViewVariant-{{ section_id }}-{{ card_product.id }}">Size</label>
-                    <select
-                      id="QuickViewVariant-{{ section_id }}-{{ card_product.id }}"
-                      name="id"
-                      class="quick-view-modal__variant-select"
-                    >
-                      {% for variant in card_product.variants %}
-                        <option value="{{ variant.id }}" {% if variant == card_product.selected_or_first_available_variant %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
-                          {{ variant.title }}{% unless variant.available %} - Sold out{% endunless %}
-                        </option>
-                      {% endfor %}
-                    </select>
-                  {% else %}
-                    <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}">
-                  {% endif %}
-                  <label class="quick-view-modal__quantity-label" for="QuickViewQuantity-{{ section_id }}-{{ card_product.id }}">Quantity</label>
-                  <input id="QuickViewQuantity-{{ section_id }}-{{ card_product.id }}" class="quick-view-modal__quantity" type="number" name="quantity" value="1" min="1">
-                  <button type="submit" name="add" class="button">
-                    {{ 'products.product.add_to_cart' | t }}
-                  </button>
-                  {{ form | payment_button }}
-                {%- endform -%}
-              </product-form>
-              <a class="link underlined-link" href="{{ card_product.url }}">View full details</a>
-            </div>
-          </div>
-        </div>
-      </template>
-    {%- endif -%}
   </product-component>
 {%- else -%}
   {%- liquid
