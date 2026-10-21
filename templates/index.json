@@ -391,23 +391,6 @@
         "padding_bottom": 36
       }
     },
-    "featured_blog_editorial": {
-      "type": "featured-blog",
-      "name": "Featured blog editorial",
-      "settings": {
-        "blog": "news",
-        "post_limit": 3,
-        "heading": "Latest news",
-        "subheading": "<p>Discover the latest stories, inspiration, and fragrance news.</p>",
-        "heading_size": "h1",
-        "button_label": "Read more",
-        "show_image": true,
-        "show_date": true,
-        "color_scheme": "scheme-1",
-        "padding_top": 60,
-        "padding_bottom": 60
-      }
-    },
     "customer_testimonials": {
       "type": "customer-testimonials",
       "blocks": {
@@ -441,6 +424,23 @@
         "background_color": "#ffffff",
         "text_color": "#111111",
         "accent_color": "#c8104f"
+      }
+    },
+    "featured_blog_editorial": {
+      "type": "featured-blog",
+      "name": "Featured blog editorial",
+      "settings": {
+        "blog": "news",
+        "post_limit": 3,
+        "heading": "Latest news",
+        "subheading": "<p>Discover the latest stories, inspiration, and fragrance news.</p>",
+        "heading_size": "h1",
+        "button_label": "Read more",
+        "show_image": true,
+        "show_date": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     },
     "service_benefits": {
@@ -506,8 +506,8 @@
     "featured_collection_4HQwtp",
     "brand_background_showcase",
     "featured_collection_NKzjtm",
-    "featured_blog_editorial",
     "customer_testimonials",
+    "featured_blog_editorial",
     "service_benefits"
   ]
 }
