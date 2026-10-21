@@ -449,6 +449,7 @@
         "free_shipping": {
           "type": "benefit",
           "settings": {
+            "image": "shopify://shop_images/Policy_1.png",
             "icon": "icon-box.svg",
             "title": "Free Shipping",
             "description": "Free shipping on over $49"
@@ -457,6 +458,7 @@
         "money_guarantee": {
           "type": "benefit",
           "settings": {
+            "image": "shopify://shop_images/Policy_2.png",
             "icon": "icon-lock.svg",
             "title": "Money Guarantee",
             "description": "Within 30 days for an exchange"
@@ -465,6 +467,7 @@
         "online_support": {
           "type": "benefit",
           "settings": {
+            "image": "shopify://shop_images/Policy_3.png",
             "icon": "icon-chat-bubble.svg",
             "title": "Online Support",
             "description": "24 hours a day, 7 days a week"
@@ -473,6 +476,7 @@
         "flexible_payment": {
           "type": "benefit",
           "settings": {
+            "image": "shopify://shop_images/Policy_4.png",
             "icon": "icon-discount.svg",
             "title": "Flexible Payment",
             "description": "Pay with Multiple Credit Cards"
@@ -488,8 +492,8 @@
       "name": "Service benefits",
       "settings": {
         "color_scheme": "scheme-1",
-        "padding_top": 24,
-        "padding_bottom": 24
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     }
   },
