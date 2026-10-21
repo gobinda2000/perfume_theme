@@ -35,14 +35,29 @@
     row-gap: 3.2rem;
   }
 
+  #collection-{{ section.id }} .collection__title {
+    display: block;
+    text-align: center;
+  }
+
+  #collection-{{ section.id }} .card__inner.ratio {
+    --ratio-percent: 100% !important;
+  }
+
   #collection-{{ section.id }} .quick-add {
     display: none;
   }
 
   @media screen and (min-width: 990px) {
     #collection-{{ section.id }} .slider-component-desktop {
+      --desktop-margin-left-first-item: 0;
       position: relative;
       padding: 0 4.8rem;
+    }
+
+    #collection-{{ section.id }} .slider-component-desktop .slider--desktop .slider__slide:first-child {
+      margin-left: 0;
+      scroll-margin-left: 0;
     }
 
     #collection-{{ section.id }} .slider-component-desktop .slider-buttons {
@@ -318,7 +333,7 @@
       {%- endif -%}
     </div>
 
-    <slider-component class="slider-mobile-gutter{% if section.settings.full_width %} slider-component-full-width{% endif %}{% if show_mobile_slider == false %} page-width{% endif %}{% if show_desktop_slider == false and section.settings.full_width == false %} page-width-desktop{% endif %}{% if show_desktop_slider %} slider-component-desktop{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <slider-component data-loop="true" class="slider-mobile-gutter{% if section.settings.full_width %} slider-component-full-width{% endif %}{% if show_mobile_slider == false %} page-width{% endif %}{% if show_desktop_slider == false and section.settings.full_width == false %} page-width-desktop{% endif %}{% if show_desktop_slider %} slider-component-desktop{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       <ul
         id="Slider-{{ section.id }}"
         data-id="{{ section.id }}"
