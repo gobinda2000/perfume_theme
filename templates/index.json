@@ -431,10 +431,10 @@
       "settings": {
         "accessibility_label": "Customer testimonials",
         "section_height": 350,
-        "mobile_height": 520,
+        "mobile_height": 430,
         "avatar_size": 60,
-        "background_color": "#ffffff",
-        "text_color": "#111111",
+        "background_color": "#F8F8F8",
+        "text_color": "#060606",
         "accent_color": "#c8104f"
       }
     },
