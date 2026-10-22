@@ -32,7 +32,7 @@
         "hotline_label": "Hotline:",
         "hotline_number": "1-888-345-6789",
         "color_scheme": "scheme-4",
-        "show_line_separator": true,
+        "show_line_separator": false,
         "show_social": false,
         "enable_country_selector": true,
         "enable_language_selector": true
