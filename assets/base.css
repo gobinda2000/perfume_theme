@@ -2917,7 +2917,18 @@ details[open] > .header__submenu {
 .header__menu-item {
   padding: 1.2rem;
   text-decoration: none;
-  color: rgba(var(--color-foreground), 0.75);
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 15px !important;
+  font-style: normal;
+  font-weight: 400 !important;
+  color: #000000;
+}
+
+.header__menu-item span {
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
 }
 
 .header__menu-item:hover {
