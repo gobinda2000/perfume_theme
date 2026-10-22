@@ -138,9 +138,9 @@
         "primary_text": "END OF SEASON SALE",
         "accent_text": "BLACK FRIDAY",
         "marquee_speed": 22,
-        "image_height": 70,
-        "mobile_image_height": 55,
-        "strip_height": 125,
+        "image_height": 40,
+        "mobile_image_height": 30,
+        "strip_height": 85,
         "background_color": "#c8104f",
         "text_color": "#ffffff",
         "accent_text_color": "#ffffff"
